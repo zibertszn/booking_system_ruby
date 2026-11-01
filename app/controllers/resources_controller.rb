@@ -128,7 +128,11 @@ class ResourcesController < ApplicationController
       :capacity,
       :hourly_rate,
       :rate_unit,
-      :image_url
+      :image_url,
+      :available_from_time,
+      :available_to_time,
+      :available_from_date,
+      :available_to_date
     )
   end
 

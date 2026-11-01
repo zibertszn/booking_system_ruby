@@ -1,0 +1,30 @@
+<!-- app/views/chat_messages/_form.html.erb — Форма отправки сообщения в Turbo Frame -->
+<%= turbo_frame_tag "new_chat_message_form_#{chat_room.id}" do %>
+  <%= form_with(model: [chat_room, chat_message], class: "space-y-2", data: { turbo_frame: "new_chat_message_form_#{chat_room.id}" }) do |f| %>
+    <% if chat_message.errors.any? %>
+      <div class="text-xs text-rose-600 font-medium">
+        <%= chat_message.errors.full_messages.join(", ") %>
+      </div>
+    <% end %>
+
+    <div class="flex items-center gap-2">
+      <div class="flex-1 relative">
+        <%= f.text_field :content,
+              placeholder: "Напишите сообщение в чат... (Enter для отправки)",
+              required: true,
+              autocomplete: "off",
+              class: "w-full px-4 py-2.5 text-sm bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-sky-600 focus:ring-1 focus:ring-sky-600 transition-all placeholder:text-slate-400" %>
+      </div>
+
+      <button
+        type="submit"
+        class="px-5 py-2.5 rounded-xl text-xs font-semibold bg-sky-600 hover:bg-sky-700 text-white transition-colors shrink-0 shadow-sm flex items-center gap-1.5"
+      >
+        <span>Отправить</span>
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+        </svg>
+      </button>
+    </div>
+  <% end %>
+<% end %>

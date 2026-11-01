@@ -1,0 +1,165 @@
+<!-- app/views/chat_rooms/show.html.erb — Приватный чат 1 на 1 (Active Cable WebSockets + Turbo Streams + Turbo Frames) -->
+<div class="space-y-6">
+  <!-- Хлебные крошки -->
+  <div class="flex items-center justify-between text-xs text-slate-500">
+    <div>
+      <a href="/resources" class="hover:text-slate-900">Каталог</a>
+      <span class="mx-2">/</span>
+      <a href="<%= chat_rooms_path %>" class="hover:text-slate-900">Диалоги 1 на 1</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-900 font-medium">Диалог с <%= @interlocutor&.name %></span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        WebSockets 1 на 1 · В сети
+      </span>
+    </div>
+  </div>
+
+  <!-- Подписка на живой поток через WebSockets -->
+  <%= turbo_stream_from @chat_room %>
+
+  <!-- Обертка Turbo Frame для частичного обновления -->
+  <turbo-frame id="chat_room_frame" class="block">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <!-- Боковая колонка: Список личных диалогов 1-на-1 -->
+      <aside class="lg:col-span-4 bg-white border border-slate-200 rounded-xl p-4 sm:p-5 space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h2 class="font-display text-sm font-bold text-slate-900">
+            Мои диалоги 1 на 1
+          </h2>
+          <span class="text-xs text-slate-400 font-mono">
+            <%= @chat_rooms.count %>
+          </span>
+        </div>
+
+        <nav class="space-y-1.5">
+          <% @chat_rooms.each do |room| %>
+            <% other_user = room.interlocutor_for(current_user) %>
+            <a
+              href="<%= chat_room_path(room) %>"
+              data-turbo-frame="_top"
+              class="flex flex-col gap-1 p-3 rounded-lg text-xs font-medium transition-colors <%= room.id == @chat_room.id ? 'bg-sky-50 text-sky-900 border border-sky-200 font-semibold' : 'text-slate-600 hover:bg-slate-50 border border-transparent' %>"
+            >
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2 truncate">
+                  <div class="w-6 h-6 rounded-full <%= room.customer_id == current_user.id ? 'bg-amber-100 text-amber-800' : 'bg-sky-100 text-sky-800' %> flex items-center justify-center text-[10px] font-bold shrink-0">
+                    <%= other_user&.name.to_s.first.upcase.presence || 'U' %>
+                  </div>
+                  <span class="truncate font-semibold text-slate-900"><%= other_user&.name %></span>
+                </div>
+                <span class="px-1.5 py-0.5 rounded text-[10px] shrink-0 <%= room.customer_id == current_user.id ? 'bg-amber-100/70 text-amber-800' : 'bg-sky-100/70 text-sky-800' %>">
+                  <%= room.customer_id == current_user.id ? 'Владелец' : 'Заказчик' %>
+                </span>
+              </div>
+              <div class="text-[11px] text-slate-500 truncate pl-8">
+                <%= room.resource&.name || room.title %>
+              </div>
+              <% if room.booking_id.present? %>
+                <div class="pl-8 flex items-center gap-1 text-[10px] text-slate-400">
+                  <span>Бронь #<%= room.booking_id %></span>
+                </div>
+              <% end %>
+            </a>
+          <% end %>
+        </nav>
+
+        <div class="pt-3 border-t border-slate-100 text-center">
+          <a
+            href="/resources"
+            data-turbo-frame="_top"
+            class="text-xs font-medium text-sky-700 hover:underline inline-flex items-center gap-1"
+          >
+            <span>+ Начать диалог из каталога</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- Основная колонка: Окно переписки 1-на-1 -->
+      <section class="lg:col-span-8 bg-white border border-slate-200 rounded-xl p-6 sm:p-7 flex flex-col space-y-4">
+        <!-- Шапка диалога 1 на 1 -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-full <%= @chat_room.customer_id == current_user.id ? 'bg-amber-100 text-amber-800' : 'bg-sky-100 text-sky-800' %> flex items-center justify-center text-sm font-bold shrink-0">
+              <%= @interlocutor&.name.to_s.first.upcase.presence || 'U' %>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h1 class="font-display text-base sm:text-lg font-bold text-slate-900">
+                  <%= @interlocutor&.name %>
+                </h1>
+                <span class="px-2 py-0.5 rounded text-[11px] font-medium <%= @chat_room.customer_id == current_user.id ? 'bg-amber-50 text-amber-800 border border-amber-200' : 'bg-sky-50 text-sky-800 border border-sky-200' %>">
+                  <%= @chat_room.customer_id == current_user.id ? 'Владелец объявления' : 'Заказчик' %>
+                </span>
+              </div>
+              <p class="text-xs text-slate-500 mt-0.5">
+                <%= @interlocutor&.email %> · Диалог 1 на 1 в реальном времени
+              </p>
+            </div>
+          </div>
+
+          <% if @chat_room.booking.present? %>
+            <a
+              href="/bookings/<%= @chat_room.booking_id %>"
+              data-turbo-frame="_top"
+              class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors shrink-0 self-start sm:self-auto flex items-center gap-1.5"
+            >
+              <span>Бронь #<%= @chat_room.booking_id %></span>
+              <span>→</span>
+            </a>
+          <% end %>
+        </div>
+
+        <!-- Карточка объявления, по которому ведется диалог -->
+        <% if @chat_room.resource.present? %>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 sm:p-4 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-12 h-12 rounded-lg bg-slate-900 border border-slate-200 overflow-hidden shrink-0 flex items-center justify-center p-1">
+                <img src="<%= @chat_room.resource.image_url %>" alt="<%= @chat_room.resource.name %>" class="w-full h-full object-contain">
+              </div>
+              <div class="min-w-0">
+                <div class="text-[11px] text-slate-500 font-medium"><%= @chat_room.resource.category_name %></div>
+                <div class="font-bold text-sm text-slate-900 truncate">
+                  <a href="<%= resource_path(@chat_room.resource.slug) %>" data-turbo-frame="_top" class="hover:text-sky-700">
+                    <%= @chat_room.resource.name %>
+                  </a>
+                </div>
+                <div class="text-xs text-slate-600 font-mono">
+                  <%= number_with_delimiter(@chat_room.resource.hourly_rate) %> ₽ / <%= @chat_room.resource.rate_unit_label %>
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="<%= resource_path(@chat_room.resource.slug) %>"
+              data-turbo-frame="_top"
+              class="px-3 py-1.5 rounded-lg text-xs font-medium text-sky-700 hover:bg-sky-50 border border-sky-200 transition-colors shrink-0 whitespace-nowrap"
+            >
+              Открыть объявление
+            </a>
+          </div>
+        <% end %>
+
+        <!-- Контейнер сообщений: сюда Turbo Streams автоматически добавляет новые сообщения -->
+        <div
+          id="chat_messages_list_<%= @chat_room.id %>"
+          class="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3.5 min-h-[320px] max-h-[520px] border border-slate-100 rounded-xl bg-slate-50/50"
+        >
+          <% if @messages.empty? %>
+            <div id="no_messages_notice" class="py-12 text-center text-xs text-slate-400">
+              Начните диалог 1 на 1 первым — напишите сообщение ниже.
+            </div>
+          <% else %>
+            <%= render partial: "chat_messages/message", collection: @messages, as: :message %>
+          <% end %>
+        </div>
+
+        <!-- Форма отправки сообщений -->
+        <div class="pt-2">
+          <%= render partial: "chat_messages/form", locals: { chat_room: @chat_room, chat_message: @new_message } %>
+        </div>
+      </section>
+    </div>
+  </turbo-frame>
+</div>

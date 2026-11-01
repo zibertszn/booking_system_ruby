@@ -163,6 +163,32 @@ RSpec.describe "Bookings Integration", type: :request do
         data = JSON.parse(response.body)
         expect(data["errors"].to_s).to match(/занят|пересека/i)
       end
+
+      it "запрещает пользователю бронировать собственное объявление через HTML" do
+        own_resource = create(:resource, user: user, hourly_rate: 1500)
+        own_params = valid_params.deep_merge(booking: { resource_id: own_resource.id })
+
+        expect {
+          post "/bookings", params: own_params
+        }.not_to change(Booking, :count)
+
+        expect(response).to redirect_to(resource_path(own_resource.slug))
+        follow_redirect!
+        expect(response.body).to include("Вы не можете забронировать собственное объявление")
+      end
+
+      it "запрещает пользователю бронировать собственное объявление через JSON" do
+        own_resource = create(:resource, user: user, hourly_rate: 1500)
+        own_params = valid_params.deep_merge(booking: { resource_id: own_resource.id })
+
+        expect {
+          post "/bookings", params: own_params, as: :json
+        }.not_to change(Booking, :count)
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        data = JSON.parse(response.body)
+        expect(data["errors"]).to include("Вы не можете забронировать собственное объявление.")
+      end
     end
   end
 

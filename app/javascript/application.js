@@ -2,3 +2,4 @@
 // Точечная инициализация реактивных виджетов Vue.js 3 на серверных страницах ERB
 
 import "./components/booking_calendar_widget.js"
+import "@hotwired/turbo-rails"

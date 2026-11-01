@@ -61,12 +61,20 @@
       >
         ← Вернуться в каталог ресурсов
       </a>
-      <a
-        href="/bookings"
-        class="px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 hover:bg-slate-800 text-white transition-colors"
-      >
-        Перейти в «Мои бронирования»
-      </a>
+      <div class="flex items-center gap-3">
+        <%= button_to chat_rooms_path(booking_id: @booking.id),
+              method: :post,
+              class: "px-4 py-2.5 rounded-lg text-sm font-semibold bg-sky-600 hover:bg-sky-700 text-white transition-colors flex items-center gap-1.5" do %>
+          <span>Чат по бронированию</span>
+          <span>💬</span>
+        <% end %>
+        <a
+          href="/bookings"
+          class="px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 hover:bg-slate-800 text-white transition-colors"
+        >
+          Перейти в «Мои бронирования»
+        </a>
+      </div>
     </div>
   </section>
 </div>

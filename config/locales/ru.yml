@@ -1,0 +1,11 @@
+ru:
+  activerecord:
+    models:
+      chat_message: "Сообщение"
+      chat_room: "Чат-комната"
+    attributes:
+      chat_message:
+        content: "Текст сообщения"
+    errors:
+      messages:
+        blank: "не может быть пустым"

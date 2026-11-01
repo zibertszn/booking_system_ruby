@@ -1,0 +1,48 @@
+<!-- app/views/chat_rooms/index.html.erb — Список диалогов 1-на-1 (состояние без диалогов) -->
+<div class="max-w-2xl mx-auto space-y-6">
+  <!-- Хлебные крошки -->
+  <div class="flex items-center justify-between text-xs text-slate-500">
+    <div>
+      <a href="/resources" class="hover:text-slate-900">Каталог</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-900 font-medium">Мои диалоги 1 на 1</span>
+    </div>
+    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      WebSockets + Turbo Streams
+    </span>
+  </div>
+
+  <div class="bg-white border border-slate-200 rounded-2xl p-8 sm:p-12 text-center space-y-5">
+    <div class="w-16 h-16 mx-auto rounded-full bg-sky-50 text-sky-600 flex items-center justify-center">
+      <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+      </svg>
+    </div>
+
+    <div class="space-y-2">
+      <h1 class="font-display text-xl sm:text-2xl font-bold text-slate-900">
+        У вас пока нет активных диалогов 1 на 1
+      </h1>
+      <p class="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+        Здесь отображаются ваши личные переписки с авторами объявлений и заказчиками. Выберите интересующее объявление в каталоге и начните приватный диалог с продавцом.
+      </p>
+    </div>
+
+    <div class="pt-3 flex flex-wrap items-center justify-center gap-3">
+      <a
+        href="/resources"
+        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-medium text-sm shadow-sm transition-colors"
+      >
+        <span>Перейти в каталог объявлений</span>
+        <span>→</span>
+      </a>
+      <a
+        href="/bookings"
+        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium text-sm transition-colors"
+      >
+        <span>Мои бронирования</span>
+      </a>
+    </div>
+  </div>
+</div>

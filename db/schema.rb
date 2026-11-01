@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_11_01_194500) do
+ActiveRecord::Schema[7.1].define(version: 2026_11_02_020000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gist"
   enable_extension "plpgsql"
@@ -68,6 +68,31 @@ ActiveRecord::Schema[7.1].define(version: 2026_11_01_194500) do
     t.exclusion_constraint "resource_id WITH =, booking_period WITH &&", where: "(status)::text = 'confirmed'::text", using: :gist, name: "bookings_resource_period_no_overlap"
   end
 
+  create_table "chat_messages", force: :cascade do |t|
+    t.bigint "chat_room_id", null: false
+    t.bigint "user_id", null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_room_id"], name: "index_chat_messages_on_chat_room_id"
+    t.index ["user_id"], name: "index_chat_messages_on_user_id"
+  end
+
+  create_table "chat_rooms", force: :cascade do |t|
+    t.string "title", null: false
+    t.bigint "booking_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "customer_id", null: false
+    t.bigint "owner_id", null: false
+    t.bigint "resource_id"
+    t.index ["booking_id"], name: "index_chat_rooms_on_booking_id"
+    t.index ["customer_id", "owner_id", "resource_id"], name: "index_chat_rooms_on_customer_id_and_owner_id_and_resource_id"
+    t.index ["customer_id"], name: "index_chat_rooms_on_customer_id"
+    t.index ["owner_id"], name: "index_chat_rooms_on_owner_id"
+    t.index ["resource_id"], name: "index_chat_rooms_on_resource_id"
+  end
+
   create_table "resources", force: :cascade do |t|
     t.string "slug", null: false
     t.string "name", null: false
@@ -83,6 +108,10 @@ ActiveRecord::Schema[7.1].define(version: 2026_11_01_194500) do
     t.datetime "updated_at", null: false
     t.string "rate_unit", default: "hour", null: false
     t.bigint "user_id"
+    t.string "available_from_time", default: "09:00", null: false
+    t.string "available_to_time", default: "21:00", null: false
+    t.date "available_from_date"
+    t.date "available_to_date"
     t.index ["category"], name: "index_resources_on_category"
     t.index ["slug"], name: "index_resources_on_slug", unique: true
     t.index ["user_id"], name: "index_resources_on_user_id"
@@ -106,5 +135,11 @@ ActiveRecord::Schema[7.1].define(version: 2026_11_01_194500) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bookings", "resources"
   add_foreign_key "bookings", "users"
+  add_foreign_key "chat_messages", "chat_rooms"
+  add_foreign_key "chat_messages", "users"
+  add_foreign_key "chat_rooms", "bookings"
+  add_foreign_key "chat_rooms", "resources"
+  add_foreign_key "chat_rooms", "users", column: "customer_id"
+  add_foreign_key "chat_rooms", "users", column: "owner_id"
   add_foreign_key "resources", "users"
 end

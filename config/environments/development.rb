@@ -30,5 +30,11 @@ Rails.application.configure do
 
   config.assets.quiet = true
 
+  # Используем кэш в оперативной памяти во избежание конфликтов блокировки файлов на Windows
+  config.assets.configure do |env|
+    env.cache = Sprockets::Cache::MemoryStore.new
+  end
+
+
   config.active_storage.service = :local
 end

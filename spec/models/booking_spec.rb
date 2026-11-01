@@ -43,6 +43,66 @@ RSpec.describe Booking, type: :model do
     end
   end
 
+  # --- Валидация бронирования внутри интервала доступности ресурса ---
+  describe "booking_within_resource_availability" do
+    let(:resource) do
+      create(
+        :resource,
+        available_from_time: "10:00",
+        available_to_time: "18:00",
+        available_from_date: Date.current,
+        available_to_date: Date.current + 7.days
+      )
+    end
+
+    it "валидно когда время бронирования попадает в интервал доступности" do
+      booking = build(:booking, resource: resource, booking_date: Date.current + 1.day, start_time: "11:00", end_time: "13:00")
+      expect(booking).to be_valid
+    end
+
+    it "не валидно когда start_time раньше available_from_time" do
+      booking = build(:booking, resource: resource, booking_date: Date.current + 1.day, start_time: "09:00", end_time: "11:00")
+      expect(booking).not_to be_valid
+      expect(booking.errors[:base].join).to include("Бронирование возможно только в интервале доступности с 10:00 до 18:00")
+    end
+
+    it "не валидно когда end_time позже available_to_time" do
+      booking = build(:booking, resource: resource, booking_date: Date.current + 1.day, start_time: "17:00", end_time: "19:00")
+      expect(booking).not_to be_valid
+      expect(booking.errors[:base].join).to include("Бронирование возможно только в интервале доступности с 10:00 до 18:00")
+    end
+
+    it "не валидно когда дата бронирования раньше available_from_date" do
+      booking = build(:booking, resource: resource, booking_date: Date.current - 1.day, start_time: "11:00", end_time: "12:00")
+      expect(booking).not_to be_valid
+      expect(booking.errors[:booking_date].join).to include("не может быть раньше начала периода доступности")
+    end
+
+    it "не валидно когда дата бронирования позже available_to_date" do
+      booking = build(:booking, resource: resource, booking_date: Date.current + 10.days, start_time: "11:00", end_time: "12:00")
+      expect(booking).not_to be_valid
+      expect(booking.errors[:booking_date].join).to include("не может быть позже окончания периода доступности")
+    end
+  end
+
+  # --- Запрет бронирования собственного объявления ---
+  describe "user_cannot_book_own_resource" do
+    let(:owner) { create(:user, name: "Владелец объявления") }
+    let(:renter) { create(:user, name: "Арендатор") }
+    let(:resource) { create(:resource, user: owner) }
+
+    it "запрещает владельцу бронировать свое собственное объявление" do
+      booking = build(:booking, user: owner, resource: resource)
+      expect(booking).not_to be_valid
+      expect(booking.errors[:base]).to include("Вы не можете забронировать собственное объявление")
+    end
+
+    it "разрешает бронирование другому пользователю" do
+      booking = build(:booking, user: renter, resource: resource)
+      expect(booking).to be_valid
+    end
+  end
+
   # --- Вычисляемые поля ---
   describe "#compute_timestamps_and_price (before_validation)" do
     let(:resource) { create(:resource, hourly_rate: 1000) }

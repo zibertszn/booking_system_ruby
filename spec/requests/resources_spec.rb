@@ -92,6 +92,28 @@ RSpec.describe "Resources", type: :request do
         expect(response).to redirect_to(resource_path(resource.slug))
       end
 
+      it "создает ресурс с указанным автором временным промежутком бронирования" do
+        post "/resources", params: {
+          resource: {
+            name: "Студия с особым графиком",
+            category: "rooms",
+            rate_unit: "hour",
+            hourly_rate: 2500,
+            available_from_time: "10:00",
+            available_to_time: "17:00",
+            available_from_date: Date.current.to_s,
+            available_to_date: (Date.current + 14.days).to_s,
+            description: "Студия с графиком с 10:00 до 17:00"
+          }
+        }
+        resource = Resource.find_by(name: "Студия с особым графиком")
+        expect(resource).to be_present
+        expect(resource.available_from_time).to eq("10:00")
+        expect(resource.available_to_time).to eq("17:00")
+        expect(resource.available_from_date).to eq(Date.current)
+        expect(resource.available_to_date).to eq(Date.current + 14.days)
+      end
+
       it "создает помещение со ставкой в день" do
         post "/resources", params: {
           resource: {

@@ -1,0 +1,18 @@
+# frozen_string_literal: true
+
+class CreateChatRoomsAndMessages < ActiveRecord::Migration[7.1]
+  def change
+    create_table :chat_rooms do |t|
+      t.string :title, null: false
+      t.references :booking, foreign_key: true, index: true
+      t.timestamps
+    end
+
+    create_table :chat_messages do |t|
+      t.references :chat_room, null: false, foreign_key: true, index: true
+      t.references :user, null: false, foreign_key: true, index: true
+      t.text :content, null: false
+      t.timestamps
+    end
+  end
+end

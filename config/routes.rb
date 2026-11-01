@@ -25,6 +25,12 @@ Rails.application.routes.draw do
     end
   end
 
+  # Чат в реальном времени (WebSockets + Hotwire Turbo Streams + Turbo Frames)
+  get "/chat", to: "chat_rooms#index", as: :chat
+  resources :chat_rooms, only: [:index, :show, :create] do
+    resources :chat_messages, only: [:create]
+  end
+
   # Легковесные JSON-эндпоинты специально для реактивных виджетов Vue.js
   namespace :api do
     namespace :v1 do

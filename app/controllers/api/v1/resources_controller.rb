@@ -14,6 +14,10 @@ module Api
           resource_id: resource.id,
           resource_name: resource.name,
           hourly_rate: resource.hourly_rate,
+          available_from_time: resource.available_from_time,
+          available_to_time: resource.available_to_time,
+          available_from_date: resource.available_from_date,
+          available_to_date: resource.available_to_date,
           date: date_str,
           slots: slots
         }

@@ -271,7 +271,8 @@ RSpec.describe "End-to-End User Journeys (Интеграционные сцен�
     let(:user_1) { create(:user, email: "user1@example.com") }
     let(:user_2) { create(:user, email: "user2@example.com") }
     let(:resource_1) { create(:resource, user: user_1, name: "Ресурс Первого") }
-    let(:booking_1)  { create(:booking, user: user_1, resource: resource_1) }
+    let(:resource_third) { create(:resource, name: "Сторонний ресурс") }
+    let(:booking_1)  { create(:booking, user: user_1, resource: resource_third) }
 
     it "надежно изолирует данные и запрещает несанкционированные действия" do
       # 1. Неавторизованный гость не может зайти в защищенные разделы
@@ -316,6 +317,22 @@ RSpec.describe "End-to-End User Journeys (Интеграционные сцен�
       patch "/bookings/#{booking_1.id}/cancel"
       expect(response).to have_http_status(:not_found)
       expect(booking_1.reload.status).to eq("confirmed")
+
+      # 2.6 Пользователь не может забронировать собственное объявление
+      sign_in user_1
+      post "/bookings", params: {
+        booking: {
+          resource_id: resource_1.id,
+          booking_date: (Date.current + 2).to_s,
+          start_time: "10:00",
+          end_time: "12:00",
+          contact_name: user_1.name,
+          contact_email: user_1.email
+        }
+      }
+      expect(response).to redirect_to(resource_path(resource_1.slug))
+      follow_redirect!
+      expect(response.body).to include("Вы не можете забронировать собственное объявление")
     end
   end
 end

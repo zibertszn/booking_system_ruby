@@ -80,6 +80,19 @@ RSpec.describe "API v1 Integration", type: :request do
       expect(slot_14["available"]).to be true
       expect(slot_15["available"]).to be true
     end
+
+    it "возвращает слоты строго по заданному автором временному промежутку" do
+      custom_resource = create(:resource, available_from_time: "10:00", available_to_time: "15:00")
+      get "/api/v1/resources/#{custom_resource.slug}/availability", params: { date: target_date }
+
+      expect(response).to have_http_status(:ok)
+      data = JSON.parse(response.body)
+      expect(data["available_from_time"]).to eq("10:00")
+      expect(data["available_to_time"]).to eq("15:00")
+      expect(data["slots"].size).to eq(5)
+      expect(data["slots"].first["time_label"]).to eq("10:00")
+      expect(data["slots"].last["end_label"]).to eq("15:00")
+    end
   end
 
   describe "POST /api/v1/availabilities/check" do

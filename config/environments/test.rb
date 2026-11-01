@@ -10,6 +10,11 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
   config.cache_store = :null_store
 
+  # Отключаем дисковый кэш ассетов в тестах во избежание конфликтов блокировки файлов на Windows
+  config.assets.configure do |env|
+    env.cache = Sprockets::Cache::NullStore.new
+  end
+
   config.action_mailer.delivery_method = :test
   config.action_mailer.default_url_options = { host: "example.com" }
 

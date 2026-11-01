@@ -91,10 +91,10 @@ resources_data = [
   }
 ]
 
-resources_data.each do |attrs|
+resources_data.each_with_index do |attrs, idx|
   Resource.find_or_create_by!(slug: attrs[:slug]) do |r|
     r.assign_attributes(attrs)
-    r.user = alex
+    r.user = idx.even? ? alex : maria
   end
 end
 
@@ -104,15 +104,15 @@ today = Date.current
 
 if Booking.count.zero?
   Booking.create!(
-    user: alex,
+    user: maria,
     resource: alpha,
     booking_date: today,
     start_time: "10:00",
     end_time: "12:00",
     purpose: "Планирование квартального спринта команды",
-    contact_name: alex.name,
-    contact_email: alex.email,
-    contact_phone: alex.phone
+    contact_name: maria.name,
+    contact_email: maria.email,
+    contact_phone: maria.phone
   )
 
   Booking.create!(

@@ -18,7 +18,6 @@
         const currentImage = ref(initialImage);
         const rawSource = ref("");
         const previewImage = ref("");
-        const customUrl = ref("");
         const isEditing = ref(false);
         const isSaving = ref(false);
         const statusMsg = ref("");
@@ -40,20 +39,9 @@
           reader.readAsDataURL(file);
         }
 
-        function onUrlInput() {
-          errorMsg.value = "";
-          statusMsg.value = "";
-          if (customUrl.value.trim()) {
-            rawSource.value = customUrl.value.trim();
-            previewImage.value = customUrl.value.trim();
-            selectedFileName.value = "";
-          }
-        }
-
         async function saveImage() {
-          const imageToSave = previewImage.value || customUrl.value.trim();
-          if (!imageToSave) {
-            errorMsg.value = "Выберите файл изображения с компьютера или вставьте ссылку.";
+          if (!previewImage.value) {
+            errorMsg.value = "Выберите файл изображения с компьютера.";
             return;
           }
 
@@ -70,8 +58,7 @@
                 "X-CSRF-Token": getCsrfToken()
               },
               body: JSON.stringify({
-                image_data: previewImage.value.startsWith("data:image/") ? previewImage.value : "",
-                image_url: !previewImage.value.startsWith("data:image/") ? imageToSave : ""
+                image_data: previewImage.value.startsWith("data:image/") ? previewImage.value : ""
               })
             });
 
@@ -83,7 +70,6 @@
             currentImage.value = data.image_url;
             rawSource.value = "";
             previewImage.value = "";
-            customUrl.value = "";
             selectedFileName.value = "";
             isEditing.value = false;
             statusMsg.value = "Фотография ресурса успешно сохранена.";
@@ -98,7 +84,6 @@
           isEditing.value = false;
           rawSource.value = "";
           previewImage.value = "";
-          customUrl.value = "";
           selectedFileName.value = "";
           errorMsg.value = "";
         }
@@ -108,14 +93,12 @@
           currentImage,
           previewImage,
           rawSource,
-          customUrl,
           isEditing,
           isSaving,
           statusMsg,
           errorMsg,
           selectedFileName,
           onFileChange,
-          onUrlInput,
           saveImage,
           cancelEdit
         };
@@ -165,19 +148,6 @@
               </div>
             </div>
 
-            <div>
-              <label class="block text-xs text-slate-600 mb-1">
-                Или укажите прямую ссылку на изображение (URL):
-              </label>
-              <input
-                type="text"
-                v-model="customUrl"
-                @input="onUrlInput"
-                placeholder="https://... или /images/..."
-                class="w-full px-3 py-1.5 text-xs border border-slate-300 rounded-lg text-slate-900 bg-white focus:outline-none focus:border-sky-600"
-              />
-            </div>
-
             <div v-if="errorMsg" class="text-xs text-rose-600">
               {{ errorMsg }}
             </div>
@@ -217,7 +187,6 @@
       setup() {
         const rawSource = ref("");
         const imageData = ref("");
-        const imageUrl = ref("");
         const fileName = ref("");
 
         function handleFile(event) {
@@ -236,14 +205,12 @@
         function clearImage() {
           rawSource.value = "";
           imageData.value = "";
-          imageUrl.value = "";
           fileName.value = "";
         }
 
         return {
           rawSource,
           imageData,
-          imageUrl,
           fileName,
           handleFile,
           clearImage
@@ -257,11 +224,11 @@
                 Фотография ресурса *
               </label>
               <p class="text-xs text-slate-500 mt-0.5">
-                Загрузите фото со своего компьютера или укажите ссылку на изображение
+                Загрузите фото со своего компьютера
               </p>
             </div>
             <button
-              v-if="imageData || imageUrl || rawSource"
+              v-if="imageData || rawSource"
               type="button"
               @click="clearImage"
               class="text-xs text-rose-600 hover:underline self-start sm:self-auto"
@@ -273,7 +240,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
             <div class="space-y-3">
               <div>
-                <label class="block text-xs font-medium text-slate-700 mb-1">1. Загрузить файл с компьютера:</label>
+                <label class="block text-xs font-medium text-slate-700 mb-1">Загрузить файл с компьютера:</label>
                 <input
                   type="file"
                   name="resource[image_file]"
@@ -286,24 +253,13 @@
                 </div>
               </div>
 
-              <div>
-                <label class="block text-xs font-medium text-slate-700 mb-1">2. Или указать ссылку (URL):</label>
-                <input
-                  type="text"
-                  name="resource[image_url]"
-                  v-model="imageUrl"
-                  placeholder="https://... или /images/room_alpha.svg"
-                  class="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg text-slate-900 bg-white focus:outline-none focus:border-sky-600"
-                />
-              </div>
-
               <input type="hidden" name="resource[image_data]" :value="imageData" />
             </div>
 
             <div class="h-52 rounded-lg overflow-hidden bg-slate-900 border border-slate-200 flex items-center justify-center p-2 relative">
               <img
-                v-if="imageData || imageUrl"
-                :src="imageData || imageUrl"
+                v-if="imageData || rawSource"
+                :src="imageData || rawSource"
                 alt="Предпросмотр ресурса"
                 referrerpolicy="no-referrer"
                 class="w-full h-full object-contain"
@@ -346,6 +302,12 @@
         const isSubmitting = ref(false);
         const showCheckoutForm = ref(false);
 
+        const availableFromTime = ref(mountEl.dataset.availableFromTime || "09:00");
+        const availableToTime = ref(mountEl.dataset.availableToTime || "21:00");
+        const availableFromDate = ref(mountEl.dataset.availableFromDate || "");
+        const availableToDate = ref(mountEl.dataset.availableToDate || "");
+        const isOwner = ref(mountEl.dataset.isOwner === "true");
+
         const contactName = ref(defaultUserName);
         const contactEmail = ref(defaultUserEmail);
         const contactPhone = ref(defaultUserPhone);
@@ -378,6 +340,10 @@
             if (!response.ok) throw new Error("Не удалось загрузить расписание слотов");
             const data = await response.json();
             slots.value = data.slots || [];
+            if (data.available_from_time) availableFromTime.value = data.available_from_time;
+            if (data.available_to_time) availableToTime.value = data.available_to_time;
+            if (data.available_from_date !== undefined) availableFromDate.value = data.available_from_date || "";
+            if (data.available_to_date !== undefined) availableToDate.value = data.available_to_date || "";
           } catch (err) {
             serverError.value = err.message || "Ошибка загрузки расписания";
           } finally {
@@ -463,6 +429,10 @@
         }
 
         async function openCheckout() {
+          if (isOwner.value) {
+            serverError.value = "Вы являетесь автором этого объявления. Бронирование собственного ресурса недоступно.";
+            return;
+          }
           if (durationHours.value <= 0) return;
           overlapWarning.value = "";
           serverError.value = "";
@@ -496,6 +466,10 @@
         }
 
         async function submitBooking() {
+          if (isOwner.value) {
+            serverError.value = "Вы являетесь автором этого объявления. Бронирование собственного ресурса недоступно.";
+            return;
+          }
           if (!contactName.value.trim() || !contactEmail.value.trim()) {
             serverError.value = "Укажите имя и электронную почту для отправки подтверждения.";
             return;
@@ -559,6 +533,11 @@
         return {
           resourceName,
           hourlyRate,
+          isOwner,
+          availableFromTime,
+          availableToTime,
+          availableFromDate,
+          availableToDate,
           selectedDate,
           upcomingDays,
           slots,
@@ -646,7 +625,7 @@
           <div class="mt-6">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
               <label class="text-sm font-semibold text-slate-900">
-                2. Часовые интервалы (09:00 – 21:00)
+                2. Часовые интервалы ({{ availableFromTime }} – {{ availableToTime }})
               </label>
               <div class="text-xs text-slate-600">
                 Свободно · Выбрано · Занято
@@ -655,6 +634,10 @@
 
             <div v-if="isLoadingSlots" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2.5 py-2">
               <div v-for="n in 12" :key="n" class="h-16 rounded-lg bg-slate-100 animate-pulse border border-slate-200"></div>
+            </div>
+
+            <div v-else-if="slots.length === 0" class="p-8 text-center text-sm text-slate-500 bg-slate-50 border border-slate-200 rounded-xl">
+              На выбранную дату слоты для бронирования недоступны (вне графика доступности ресурса).
             </div>
 
             <div v-else class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2.5">
@@ -716,8 +699,11 @@
               </div>
             </div>
 
+            <div v-if="isOwner" class="px-4 py-2.5 rounded-lg text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-200">
+              Нельзя забронировать свое объявление
+            </div>
             <button
-              v-if="!showCheckoutForm"
+              v-else-if="!showCheckoutForm"
               type="button"
               :disabled="durationHours <= 0"
               @click="openCheckout"

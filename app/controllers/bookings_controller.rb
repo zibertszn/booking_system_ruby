@@ -28,6 +28,16 @@ class BookingsController < ApplicationController
   # POST /bookings — Создание новой брони с защитой от овербукинга
   def create
     @resource = Resource.find(booking_params[:resource_id])
+
+    if @resource.owned_by?(current_user)
+      error_msg = "Вы не можете забронировать собственное объявление."
+      respond_to do |format|
+        format.html { redirect_to resource_path(@resource.slug), alert: error_msg }
+        format.json { render json: { errors: [error_msg] }, status: :unprocessable_entity }
+      end
+      return
+    end
+
     @booking  = current_user.bookings.build(booking_params)
 
     ActiveRecord::Base.transaction do

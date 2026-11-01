@@ -126,6 +126,44 @@ RSpec.describe Resource, type: :model do
       room_hour = build(:resource, category: "rooms", hourly_rate: 1500, rate_unit: "hour")
       expect(room_hour.effective_hourly_rate).to eq(1500)
     end
+
+    describe "временной промежуток доступности для бронирования" do
+      it "по умолчанию устанавливает 09:00 - 21:00" do
+        res = create(:resource, available_from_time: nil, available_to_time: nil)
+        expect(res.available_from_time).to eq("09:00")
+        expect(res.available_to_time).to eq("21:00")
+      end
+
+      it "не валиден если время окончания раньше или равно времени начала" do
+        res = build(:resource, available_from_time: "18:00", available_to_time: "10:00")
+        expect(res).not_to be_valid
+        expect(res.errors[:available_to_time]).to include("должно быть позже времени начала доступности")
+      end
+
+      it "не валиден если дата окончания раньше даты начала" do
+        res = build(:resource, available_from_date: Date.current + 5.days, available_to_date: Date.current + 1.day)
+        expect(res).not_to be_valid
+        expect(res.errors[:available_to_date]).to include("не может быть раньше даты начала доступности")
+      end
+
+      it "генерирует слоты в hourly_slots_for строго внутри заданного автором интервала часов" do
+        res = create(:resource, available_from_time: "10:00", available_to_time: "14:00")
+        slots = res.hourly_slots_for(Date.current.to_s)
+        expect(slots.size).to eq(4) # 10:00-11:00, 11:00-12:00, 12:00-13:00, 13:00-14:00
+        expect(slots.first[:time_label]).to eq("10:00")
+        expect(slots.last[:end_label]).to eq("14:00")
+      end
+
+      it "возвращает пустой список слотов для даты вне диапазона доступности" do
+        res = create(
+          :resource,
+          available_from_date: Date.current + 2.days,
+          available_to_date: Date.current + 5.days
+        )
+        expect(res.hourly_slots_for(Date.current.to_s)).to be_empty
+        expect(res.hourly_slots_for((Date.current + 3.days).to_s)).not_to be_empty
+      end
+    end
   end
 
   # --- Скоупы ---

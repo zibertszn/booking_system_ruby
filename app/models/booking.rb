@@ -3,6 +3,7 @@
 class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :resource
+  has_one :chat_room, dependent: :destroy
 
   delegate :name, :slug, to: :resource, prefix: true, allow_nil: true
 
@@ -14,6 +15,8 @@ class Booking < ApplicationRecord
   validates :contact_name, :contact_email, presence: true
   validates :status, inclusion: { in: STATUSES }
   validate  :end_time_after_start_time
+  validate  :booking_within_resource_availability
+  validate  :user_cannot_book_own_resource
   validate  :no_overlapping_confirmed_bookings, if: -> { status == "confirmed" }
 
   after_create_commit :deliver_confirmation_notification
@@ -59,6 +62,39 @@ class Booking < ApplicationRecord
 
     if ends_at <= starts_at
       errors.add(:end_time, "должно быть позже времени начала")
+    end
+  end
+
+  def booking_within_resource_availability
+    return if resource.blank? || booking_date.blank? || start_time.blank? || end_time.blank?
+
+    if resource.available_from_date.present? && booking_date < resource.available_from_date
+      errors.add(:booking_date, "не может быть раньше начала периода доступности ресурса (#{resource.available_from_date.strftime('%d.%m.%Y')})")
+    end
+
+    if resource.available_to_date.present? && booking_date > resource.available_to_date
+      errors.add(:booking_date, "не может быть позже окончания периода доступности ресурса (#{resource.available_to_date.strftime('%d.%m.%Y')})")
+    end
+
+    b_start_min = self.class.time_to_minutes(start_time)
+    b_end_min   = self.class.time_to_minutes(end_time)
+
+    res_from = resource.available_from_time.presence || "09:00"
+    res_to   = resource.available_to_time.presence || "21:00"
+
+    res_start_min = self.class.time_to_minutes(res_from)
+    res_end_min   = res_to.start_with?("24") ? 1440 : self.class.time_to_minutes(res_to)
+
+    if b_start_min < res_start_min || b_end_min > res_end_min
+      errors.add(:base, "Бронирование возможно только в интервале доступности с #{res_from} до #{res_to}")
+    end
+  end
+
+  def user_cannot_book_own_resource
+    return if user_id.blank? || resource.blank?
+
+    if resource.user_id.present? && resource.user_id == user_id
+      errors.add(:base, "Вы не можете забронировать собственное объявление")
     end
   end
 

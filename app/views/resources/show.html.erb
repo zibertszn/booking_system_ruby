@@ -62,6 +62,10 @@
             <span aria-hidden="true">·</span>
             <span>Вместимость до <span class="font-mono tabular-nums"><%= @resource.capacity %></span> чел.</span>
           <% end %>
+          <% if @resource.user.present? %>
+            <span aria-hidden="true">·</span>
+            <span>Автор: <strong class="text-slate-700"><%= @resource.user.name %></strong></span>
+          <% end %>
         </div>
 
         <h1 class="mt-2 font-display text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
@@ -80,21 +84,63 @@
             </div>
           </div>
         <% end %>
+
+        <div class="mt-4 pt-4 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-slate-500">Часы бронирования:</span>
+            <span class="font-mono font-semibold text-slate-900 bg-slate-100 px-2 py-0.5 rounded">
+              <%= @resource.availability_hours_label %>
+            </span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-slate-500">Период доступности:</span>
+            <span class="font-medium text-slate-800">
+              <%= @resource.availability_dates_label %>
+            </span>
+          </div>
+        </div>
       </div>
 
-      <div class="pt-5 border-t border-slate-200 flex flex-wrap items-baseline justify-between gap-4">
+      <div class="pt-5 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
         <div>
           <span class="text-xs text-slate-500"><%= @resource.rate_unit == 'hour' ? 'Почасовая ставка аренды:' : 'Ставка аренды:' %></span>
           <div class="font-mono text-2xl font-bold text-slate-900 tabular-nums mt-0.5">
             <%= number_with_delimiter(@resource.hourly_rate) %> ₽ <span class="text-sm font-normal text-slate-500">/ <%= @resource.rate_unit_label %></span>
           </div>
         </div>
-        <div class="text-xs text-slate-500">
-          Моментальное подтверждение бронирования
+        <div class="flex items-center gap-3">
+          <% if user_signed_in? && @resource.owned_by?(current_user) %>
+            <span class="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+              Ваше объявление
+            </span>
+          <% else %>
+            <%= button_to chat_rooms_path(resource_id: @resource.id),
+                  method: :post,
+                  class: "inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-sky-600 hover:bg-sky-700 text-white shadow-sm transition-colors cursor-pointer" do %>
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+              <span>Чат с автором</span>
+            <% end %>
+          <% end %>
         </div>
       </div>
     </div>
   </section>
+
+  <% if user_signed_in? && @resource.owned_by?(current_user) %>
+    <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm flex items-start gap-3">
+      <svg class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+      <div>
+        <strong class="font-semibold">Вы являетесь автором этого объявления</strong>
+        <p class="text-xs text-amber-800 mt-0.5">
+          Бронирование собственного ресурса недоступно. Вы можете отслеживать бронирования других пользователей по сетке занятости ниже.
+        </p>
+      </div>
+    </div>
+  <% end %>
 
   <!-- Контейнер для календаря бронирования -->
   <section
@@ -107,9 +153,14 @@
     data-rate-unit="<%= @resource.rate_unit %>"
     data-rate-unit-label="<%= @resource.rate_unit_label %>"
     data-initial-date="<%= @initial_date %>"
+    data-is-owner="<%= user_signed_in? && @resource.owned_by?(current_user) ? 'true' : 'false' %>"
     data-user-name="<%= current_user ? current_user.name : 'Алексей Пономарев' %>"
     data-user-email="<%= current_user ? current_user.email : 'AlePon1999@gmail.com' %>"
     data-user-phone="<%= current_user ? current_user.phone : '+7 (999) 123-45-67' %>"
+    data-available-from-time="<%= @resource.available_from_time %>"
+    data-available-to-time="<%= @resource.available_to_time %>"
+    data-available-from-date="<%= @resource.available_from_date %>"
+    data-available-to-date="<%= @resource.available_to_date %>"
   >
     <div class="bg-white border border-slate-200 rounded-xl p-6 text-sm text-slate-500">
       Загрузка расписания...

@@ -9,6 +9,8 @@
     <meta property="og:description" content="Сервис бронирования переговорных комнат, оборудования и специалистов.">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= action_cable_meta_tag %>
+    <%= javascript_importmap_tags %>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,6 +59,10 @@
           <a href="/my_resources" class="hover:text-slate-900 hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0">
             Мои объявления (<span class="font-mono tabular-nums"><%= @my_resources_count || 0 %></span>)
           </a>
+          <a href="/chat" class="hover:text-slate-900 hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0 flex items-center gap-1.5">
+            <span>Чат</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          </a>
         </nav>
 
         <!-- Zone 3: 1 primary action -->
@@ -85,6 +91,8 @@
                 <%= link_to "Мои бронирования", bookings_path,
                       class: "flex items-center gap-2 px-4 py-2.5 text-xs text-slate-700 hover:bg-slate-50 transition-colors" %>
                 <%= link_to "Мои объявления", my_resources_path,
+                      class: "flex items-center gap-2 px-4 py-2.5 text-xs text-slate-700 hover:bg-slate-50 transition-colors" %>
+                <%= link_to "Онлайн-чат", chat_path,
                       class: "flex items-center gap-2 px-4 py-2.5 text-xs text-slate-700 hover:bg-slate-50 transition-colors" %>
                 <div class="border-t border-slate-100 mt-1 pt-1">
                   <%= button_to "Выйти из аккаунта", destroy_user_session_path, method: :delete,
@@ -132,6 +140,8 @@
           <a href="/bookings" class="hover:text-slate-900">Мои бронирования</a>
           <span>·</span>
           <a href="/my_resources" class="hover:text-slate-900">Мои объявления</a>
+          <span>·</span>
+          <a href="/chat" class="hover:text-slate-900">Чат</a>
           <span>·</span>
           <a href="/users/sign_in" class="hover:text-slate-900">Профиль</a>
         </div>
