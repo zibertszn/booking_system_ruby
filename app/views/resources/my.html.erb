@@ -1,0 +1,207 @@
+<!-- app/views/resources/my.html.erb — Мои объявления -->
+<div class="space-y-8">
+  <!-- Хлебные крошки -->
+  <div class="flex items-center justify-between text-xs text-slate-500">
+    <div>
+      <a href="/resources" class="hover:text-slate-900">Каталог ресурсов</a>
+      <span class="mx-2">/</span>
+      <span class="text-slate-900 font-medium">Мои объявления</span>
+    </div>
+    <a href="/resources" class="text-sky-700 hover:underline font-medium">← Перейти в каталог</a>
+  </div>
+
+  <!-- Шапка страницы и статистика пользователя -->
+  <section class="bg-white border border-slate-200 rounded-xl p-6 sm:p-8">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+      <div>
+        <div class="text-xs text-slate-500">
+          Личный кабинет автора · <%= current_user.email %>
+        </div>
+        <h1 class="mt-1 font-display text-2xl sm:text-3xl font-bold text-slate-900">
+          Мои объявления
+        </h1>
+        <p class="text-sm text-slate-600 mt-1">
+          Управляйте своими предложениями: редактируйте данные, изменяйте ставки и удаляйте объявления.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a
+          href="/resources/new"
+          class="px-4 py-2 rounded-lg text-xs font-semibold bg-sky-600 hover:bg-sky-700 text-white transition-colors whitespace-nowrap shrink-0 shadow-sm"
+        >
+          + Подать объявление
+        </a>
+      </div>
+    </div>
+
+    <!-- Метрики объявлений пользователя -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6">
+      <div>
+        <div class="text-xs text-slate-500">Всего объявлений</div>
+        <div class="mt-1 font-mono text-2xl font-bold text-slate-900 tabular-nums">
+          <%= @total_count %>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-slate-500">Помещения</div>
+        <div class="mt-1 font-mono text-2xl font-bold text-slate-900 tabular-nums">
+          <%= @rooms_count %>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-slate-500">Оборудование</div>
+        <div class="mt-1 font-mono text-2xl font-bold text-slate-900 tabular-nums">
+          <%= @equipment_count %>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-slate-500">Специалисты</div>
+        <div class="mt-1 font-mono text-2xl font-bold text-slate-900 tabular-nums">
+          <%= @specialists_count %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Список объявлений -->
+  <section class="space-y-4">
+    <!-- Фильтрация по категориям -->
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-1.5 p-1 bg-slate-100 rounded-lg text-xs">
+        <a
+          href="/my_resources?category=all"
+          class="px-3 py-1.5 font-medium rounded-md whitespace-nowrap transition-colors <%= @selected_category == 'all' ? 'bg-white text-slate-900 shadow-sm font-semibold' : 'text-slate-600 hover:text-slate-900' %>"
+        >
+          Все (<%= @total_count %>)
+        </a>
+        <a
+          href="/my_resources?category=rooms"
+          class="px-3 py-1.5 font-medium rounded-md whitespace-nowrap transition-colors <%= @selected_category == 'rooms' ? 'bg-white text-slate-900 shadow-sm font-semibold' : 'text-slate-600 hover:text-slate-900' %>"
+        >
+          Помещения (<%= @rooms_count %>)
+        </a>
+        <a
+          href="/my_resources?category=equipment"
+          class="px-3 py-1.5 font-medium rounded-md whitespace-nowrap transition-colors <%= @selected_category == 'equipment' ? 'bg-white text-slate-900 shadow-sm font-semibold' : 'text-slate-600 hover:text-slate-900' %>"
+        >
+          Оборудование (<%= @equipment_count %>)
+        </a>
+        <a
+          href="/my_resources?category=specialists"
+          class="px-3 py-1.5 font-medium rounded-md whitespace-nowrap transition-colors <%= @selected_category == 'specialists' ? 'bg-white text-slate-900 shadow-sm font-semibold' : 'text-slate-600 hover:text-slate-900' %>"
+        >
+          Специалисты (<%= @specialists_count %>)
+        </a>
+      </div>
+
+      <span class="text-xs text-slate-500">
+        Показано: <strong class="text-slate-800"><%= @resources.count %></strong>
+      </span>
+    </div>
+
+    <% if @resources.any? %>
+      <div class="space-y-4">
+        <% @resources.each do |resource| %>
+          <article class="bg-white border border-slate-200 rounded-xl p-5 hover:border-slate-300 transition-colors flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+            <!-- Левая колонка: Фото и информация -->
+            <div class="flex items-start gap-4 flex-1 min-w-0">
+              <div class="w-28 h-24 sm:w-36 sm:h-28 bg-slate-900 rounded-lg overflow-hidden shrink-0 flex items-center justify-center p-1.5">
+                <img
+                  src="<%= resource.image_url %>"
+                  alt="<%= resource.name %>"
+                  referrerpolicy="no-referrer"
+                  class="w-full h-full object-contain"
+                >
+              </div>
+
+              <div class="flex-1 min-w-0 space-y-1.5">
+                <div class="flex flex-wrap items-center gap-2 text-xs">
+                  <span class="px-2 py-0.5 rounded font-semibold bg-slate-100 text-slate-800">
+                    <%= resource.category_name %>
+                  </span>
+                  <% if resource.location.present? %>
+                    <span class="text-slate-400">·</span>
+                    <span class="text-slate-500 truncate"><%= resource.location %></span>
+                  <% end %>
+                  <% if resource.capacity.present? && resource.capacity.to_i > 0 %>
+                    <span class="text-slate-400">·</span>
+                    <span class="text-slate-500">Вместимость: <strong class="text-slate-700 font-mono"><%= resource.capacity %></strong> чел.</span>
+                  <% end %>
+                </div>
+
+                <h2 class="font-display text-lg font-bold text-slate-900 truncate">
+                  <%= link_to resource.name, resource_path(resource.slug), class: "hover:text-sky-700 transition-colors" %>
+                </h2>
+
+                <p class="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                  <%= resource.description %>
+                </p>
+
+                <div class="pt-1 flex items-baseline gap-1.5 text-xs text-slate-500">
+                  <span>Тариф:</span>
+                  <span class="font-mono text-base font-bold text-sky-700 tabular-nums">
+                    <%= number_with_delimiter(resource.hourly_rate) %> ₽
+                  </span>
+                  <span>/ <%= resource.rate_unit_label %></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Правая колонка: Действия с объявлением -->
+            <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2.5 w-full sm:w-auto pt-3 sm:pt-0 border-t sm:border-t-0 border-slate-100 shrink-0">
+              <a
+                href="<%= resource_path(resource.slug) %>"
+                class="px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors whitespace-nowrap text-center"
+              >
+                Просмотр
+              </a>
+
+              <a
+                href="<%= edit_resource_path(resource.slug) %>"
+                class="px-3.5 py-1.5 text-xs font-semibold rounded-lg text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200 transition-colors whitespace-nowrap text-center"
+              >
+                Редактировать
+              </a>
+
+              <%= button_to resource_path(resource.slug),
+                    method: :delete,
+                    onclick: "return confirm('Вы действительно хотите удалить объявление «#{j(resource.name)}»? Это действие нельзя отменить.');",
+                    class: "px-3.5 py-1.5 text-xs font-medium rounded-lg text-rose-600 hover:bg-rose-50 border border-rose-200 transition-colors whitespace-nowrap text-center" do %>
+                Удалить
+              <% end %>
+            </div>
+          </article>
+        <% end %>
+      </div>
+    <% else %>
+      <!-- Пустое состояние -->
+      <div class="bg-white border border-slate-200 rounded-xl p-12 text-center space-y-4">
+        <div class="w-16 h-16 mx-auto bg-slate-100 rounded-2xl flex items-center justify-center text-slate-400">
+          <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-display text-lg font-bold text-slate-900">
+            У вас пока нет объявлений
+          </h3>
+          <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
+            Опубликуйте помещение, оборудование или услугу специалиста, чтобы они стали доступны в каталоге для онлайн-бронирования.
+          </p>
+        </div>
+        <div class="pt-2">
+          <a
+            href="/resources/new"
+            class="inline-flex items-center px-4 py-2 text-xs font-semibold text-white bg-sky-600 hover:bg-sky-700 rounded-lg transition-colors"
+          >
+            + Разместить объявление
+          </a>
+        </div>
+      </div>
+    <% end %>
+  </section>
+</div>

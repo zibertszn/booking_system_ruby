@@ -1,0 +1,8 @@
+{
+  "name": "Booking System",
+  "description": "Сервис бронирования ресурсов, переговорных комнат и оборудования с интерактивным календарем доступности, расчетом стоимости и защитой от пересечений.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

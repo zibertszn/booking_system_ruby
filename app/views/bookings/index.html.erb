@@ -1,0 +1,165 @@
+<!-- app/views/bookings/index.html.erb — Личный кабинет пользователя -->
+<div class="space-y-8">
+  <!-- Заголовок профиля и статистика -->
+  <section class="bg-white border border-slate-200 rounded-xl p-6 sm:p-8">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+      <div>
+        <div class="text-xs text-slate-500">
+          Личный кабинет · <%= current_user.email %> · <%= current_user.phone %>
+        </div>
+        <h1 class="mt-1 font-display text-2xl sm:text-3xl font-bold text-slate-900">
+          <%= current_user.name %> — Мои бронирования
+        </h1>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a
+          href="/resources"
+          class="px-4 py-2 rounded-lg text-xs font-semibold bg-sky-600 hover:bg-sky-700 text-white transition-colors whitespace-nowrap shrink-0"
+        >
+          Новая бронь
+        </a>
+        <a
+          href="/users/sign_in"
+          class="px-4 py-2 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors whitespace-nowrap shrink-0"
+        >
+          Сменить аккаунт
+        </a>
+      </div>
+    </div>
+
+    <!-- Метрики -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6">
+      <div>
+        <div class="text-xs text-slate-500">Активные бронирования</div>
+        <div class="mt-1 font-mono text-2xl font-bold text-slate-900 tabular-nums">
+          <%= @active_count %>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-slate-500">Суммарное время аренды</div>
+        <div class="mt-1 font-mono text-2xl font-bold text-slate-900 tabular-nums">
+          <%= @total_hours %> ч.
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs text-slate-500">Общая стоимость активных броней</div>
+        <div class="mt-1 font-mono text-2xl font-bold text-sky-700 tabular-nums">
+          <%= number_with_delimiter(@total_spent) %> ₽
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Таблица бронирований -->
+  <section class="bg-white border border-slate-200 rounded-xl overflow-hidden">
+    <div class="px-6 py-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <h2 class="font-display text-base font-bold text-slate-900">
+        История бронирований
+      </h2>
+
+      <!-- Интерактивный фильтр статуса -->
+      <div class="flex items-center gap-1 p-1 bg-slate-100 rounded-lg">
+        <a
+          href="/bookings?status=all"
+          class="px-3 py-1 text-xs font-medium rounded-md whitespace-nowrap shrink-0 <%= @status_filter == 'all' ? 'bg-white text-slate-900 shadow-sm font-semibold' : 'text-slate-600 hover:text-slate-900' %>"
+        >
+          Все записи
+        </a>
+        <a
+          href="/bookings?status=confirmed"
+          class="px-3 py-1 text-xs font-medium rounded-md whitespace-nowrap shrink-0 <%= @status_filter == 'confirmed' ? 'bg-white text-slate-900 shadow-sm font-semibold' : 'text-slate-600 hover:text-slate-900' %>"
+        >
+          Подтвержденные
+        </a>
+        <a
+          href="/bookings?status=cancelled"
+          class="px-3 py-1 text-xs font-medium rounded-md whitespace-nowrap shrink-0 <%= @status_filter == 'cancelled' ? 'bg-white text-slate-900 shadow-sm font-semibold' : 'text-slate-600 hover:text-slate-900' %>"
+        >
+          Отмененные
+        </a>
+      </div>
+    </div>
+
+    <% if @bookings.any? %>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-slate-200 bg-slate-50 text-xs font-semibold text-slate-600">
+              <th class="py-3 px-6">Номер</th>
+              <th class="py-3 px-6">Ресурс и назначение</th>
+              <th class="py-3 px-6">Дата и время</th>
+              <th class="py-3 px-6 text-right">Сумма</th>
+              <th class="py-3 px-6">Статус</th>
+              <th class="py-3 px-6 text-right">Действия</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 text-sm">
+            <% @bookings.each do |booking| %>
+              <tr class="hover:bg-slate-50/80 transition-colors">
+                <td class="py-4 px-6 font-mono text-xs text-slate-500 tabular-nums whitespace-nowrap">
+                  #<%= booking.id %>
+                </td>
+                <td class="py-4 px-6">
+                  <div class="font-semibold text-slate-900">
+                    <a href="/resources/<%= booking.resource_slug %>" class="hover:text-sky-700">
+                      <%= booking.resource_name %>
+                    </a>
+                  </div>
+                  <% if booking.purpose.present? %>
+                    <div class="text-xs text-slate-500 mt-0.5"><%= booking.purpose %></div>
+                  <% end %>
+                </td>
+                <td class="py-4 px-6 font-mono text-xs text-slate-800 tabular-nums whitespace-nowrap">
+                  <%= booking.booking_date %> · <%= booking.start_time %>–<%= booking.end_time %> (<%= booking.duration_hours %> ч.)
+                </td>
+                <td class="py-4 px-6 font-mono text-sm font-semibold text-slate-900 text-right tabular-nums whitespace-nowrap">
+                  <%= number_with_delimiter(booking.total_price) %> ₽
+                </td>
+                <td class="py-4 px-6 text-xs whitespace-nowrap">
+                  <% if booking.status == 'confirmed' %>
+                    <span class="font-semibold text-emerald-700">Подтверждено</span>
+                  <% else %>
+                    <span class="text-slate-400">Отменено</span>
+                  <% end %>
+                </td>
+                <td class="py-4 px-6 text-right whitespace-nowrap">
+                  <div class="inline-flex items-center gap-3">
+                    <a
+                      href="/bookings/<%= booking.id %>"
+                      class="text-xs font-medium text-sky-700 hover:underline"
+                    >
+                      Детали заказа
+                    </a>
+                    <% if booking.status == 'confirmed' %>
+                      <form action="/bookings/<%= booking.id %>/cancel" method="post" class="inline">
+                        <button
+                          type="submit"
+                          class="text-xs font-semibold text-rose-600 hover:text-rose-800"
+                        >
+                          Отменить
+                        </button>
+                      </form>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="p-12 text-center">
+        <h3 class="font-display text-base font-bold text-slate-900">Бронирований в выбранной категории пока нет</h3>
+        <p class="text-sm text-slate-600 mt-1">Выберите объект в каталоге и укажите удобное время в расписании.</p>
+        <div class="mt-4">
+          <a href="/resources" class="inline-block px-4 py-2 rounded-lg text-xs font-semibold bg-sky-600 text-white hover:bg-sky-700">
+            Перейти в каталог ресурсов
+          </a>
+        </div>
+      </div>
+    <% end %>
+  </section>
+</div>

@@ -1,0 +1,73 @@
+<!-- app/views/devise/registrations/new.html.erb — Страница регистрации -->
+<div class="max-w-xl mx-auto space-y-6">
+  <section class="bg-white border border-slate-200 rounded-xl p-6 sm:p-8 space-y-6">
+    <div>
+      <h1 class="font-display text-2xl font-bold text-slate-900">
+        Создать аккаунт
+      </h1>
+      <p class="text-sm text-slate-600 mt-1">
+        Зарегистрируйтесь, чтобы бронировать переговорные комнаты и оборудование.
+      </p>
+    </div>
+
+    <%= form_with model: resource, url: registration_path(resource_name), class: "space-y-4" do |f| %>
+      <% if resource.errors.any? %>
+        <div class="p-4 rounded-xl bg-rose-50 border border-rose-200 text-sm text-rose-800 space-y-1">
+          <p class="font-semibold">Исправьте ошибки:</p>
+          <ul class="list-disc list-inside space-y-0.5">
+            <% resource.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Имя <span class="text-rose-500">*</span></label>
+        <%= f.text_field :name, required: true, autocomplete: "name",
+              class: "w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:border-sky-600",
+              placeholder: "Иван Иванов" %>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Электронная почта <span class="text-rose-500">*</span></label>
+        <%= f.email_field :email, required: true, autocomplete: "email",
+              class: "w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:border-sky-600",
+              placeholder: "ivan@example.com" %>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Телефон</label>
+        <%= f.telephone_field :phone, autocomplete: "tel",
+              class: "w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:border-sky-600",
+              placeholder: "+7 (999) 000-00-00" %>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Пароль <span class="text-rose-500">*</span></label>
+        <%= f.password_field :password, required: true, autocomplete: "new-password",
+              class: "w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:border-sky-600",
+              placeholder: "Не менее 6 символов" %>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 mb-1">Подтверждение пароля <span class="text-rose-500">*</span></label>
+        <%= f.password_field :password_confirmation, required: true, autocomplete: "new-password",
+              class: "w-full px-3.5 py-2 text-sm border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:border-sky-600" %>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full py-2.5 rounded-lg text-sm font-semibold bg-sky-600 hover:bg-sky-700 text-white transition-colors"
+      >
+        Создать аккаунт
+      </button>
+    <% end %>
+
+    <div class="pt-4 border-t border-slate-200 text-center text-sm text-slate-600">
+      Уже есть аккаунт?
+      <%= link_to "Войти", new_user_session_path,
+            class: "font-semibold text-sky-600 hover:text-sky-700 hover:underline underline-offset-4" %>
+    </div>
+  </section>
+</div>

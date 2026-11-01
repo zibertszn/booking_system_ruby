@@ -1,0 +1,6 @@
+{
+  "summary":  "План полной замены TypeScript/React на классический проект Ruby on Rails + Vue.js (ERB-шаблоны с точечными виджетами Vue 3, Devise, PostgreSQL tsrange с GiST-индексом и ActionMailer) с поддержкой локального запуска через bundle exec rails server и живым превью в браузере.",
+  "updatedAt":  "2026-10-27T10:44:18.912140289Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}

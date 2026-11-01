@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#0f172a"/>
+  <!-- Acoustic booth frame -->
+  <rect x="230" y="70" width="340" height="460" rx="16" fill="#1e293b" stroke="#38bdf8" stroke-width="3"/>
+  <rect x="255" y="95" width="290" height="410" rx="8" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+  <!-- Acoustic wall panels -->
+  <line x1="285" y1="115" x2="285" y2="485" stroke="#1e293b" stroke-width="8"/>
+  <line x1="315" y1="115" x2="315" y2="485" stroke="#1e293b" stroke-width="8"/>
+  <line x1="485" y1="115" x2="485" y2="485" stroke="#1e293b" stroke-width="8"/>
+  <line x1="515" y1="115" x2="515" y2="485" stroke="#1e293b" stroke-width="8"/>
+  <!-- Desk & Laptop -->
+  <rect x="290" y="340" width="220" height="14" rx="4" fill="#64748b"/>
+  <polygon points="365,340 435,340 425,300 375,300" fill="#38bdf8"/>
+  <circle cx="400" cy="145" r="22" fill="#fef08a" opacity="0.25"/>
+  <text x="230" y="48" fill="#94a3b8" font-family="monospace" font-size="15">КАПСУЛА ТИШИНА · ИЗОЛЯЦИЯ 38 ДБ · 2 МЕСТА</text>
+</svg>

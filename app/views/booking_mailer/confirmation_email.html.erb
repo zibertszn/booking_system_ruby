@@ -1,0 +1,21 @@
+<!-- app/views/booking_mailer/confirmation_email.html.erb -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h2>Подтверждение бронирования #<%= @booking.id %></h2>
+    <p>Здравствуйте, <%= @booking.contact_name %>!</p>
+    <p>
+      Ваше бронирование ресурса <strong><%= @resource.name %></strong> успешно сохранено.
+    </p>
+    <ul>
+      <li>Дата: <%= @booking.booking_date %></li>
+      <li>Время: <%= @booking.start_time %> – <%= @booking.end_time %> (<%= @booking.duration_hours %> ч.)</li>
+      <li>Локация: <%= @resource.location %></li>
+      <li>Сумма к оплате: <%= @booking.total_price %> ₽</li>
+    </ul>
+    <p>Спасибо за использование сервиса бронирования!</p>
+  </body>
+</html>

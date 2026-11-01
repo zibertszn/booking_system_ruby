@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#0f172a"/>
+  <!-- Camera Body Sony A7 IV -->
+  <rect x="240" y="190" width="320" height="220" rx="20" fill="#1e293b" stroke="#64748b" stroke-width="3"/>
+  <rect x="335" y="150" width="130" height="45" rx="8" fill="#334155" stroke="#64748b" stroke-width="2"/>
+  <rect x="255" y="205" width="55" height="190" rx="10" fill="#0f172a"/>
+  <!-- G-Master Lens concentric rings -->
+  <circle cx="415" cy="300" r="88" fill="#0f172a" stroke="#f97316" stroke-width="4"/>
+  <circle cx="415" cy="300" r="68" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+  <circle cx="415" cy="300" r="42" fill="#0284c7" opacity="0.45"/>
+  <circle cx="398" cy="282" r="12" fill="#bae6fd" opacity="0.6"/>
+  <text x="175" y="75" fill="#94a3b8" font-family="monospace" font-size="15">SONY ALPHA 7 IV + 24-70MM F/2.8 GM II + DJI RS3 PRO</text>
+</svg>
