@@ -337,5 +337,69 @@ RSpec.describe "Resources", type: :request do
         expect(Resource.find_by(id: other_resource.id)).to be_present
       end
     end
+
+    describe "POST /resources/:id/update_image" do
+      context "когда пользователь не авторизован" do
+        it "перенаправляет на страницу входа" do
+          post update_image_resource_path(user_room.slug), params: { image_url: "https://example.com/new.jpg" }
+          expect(response).to redirect_to(new_user_session_path)
+        end
+      end
+
+      context "когда пользователь авторизован как владелец" do
+        before { sign_in user }
+
+        it "успешно обновляет фото объявления" do
+          post update_image_resource_path(user_room.slug), params: { image_url: "https://example.com/my-room.jpg" }
+          expect(response).to redirect_to(resource_path(user_room.slug))
+          user_room.reload
+          expect(user_room.image_url).to eq("https://example.com/my-room.jpg")
+        end
+
+        it "успешно обновляет фото через JSON API" do
+          post update_image_resource_path(user_room.slug, format: :json), params: { image_url: "https://example.com/my-room.jpg" }
+          expect(response).to have_http_status(:ok)
+          data = JSON.parse(response.body)
+          expect(data["image_url"]).to eq("https://example.com/my-room.jpg")
+        end
+      end
+
+      context "когда пользователь пытается обновить фото чужого объявления" do
+        before { sign_in user }
+
+        it "запрещает изменение через HTML" do
+          post update_image_resource_path(other_resource.slug), params: { image_url: "https://example.com/hacked.jpg" }
+          expect(response).to redirect_to(my_resources_path)
+          other_resource.reload
+          expect(other_resource.image_url).not_to eq("https://example.com/hacked.jpg")
+        end
+
+        it "возвращает 403 Forbidden через JSON" do
+          post update_image_resource_path(other_resource.slug, format: :json), params: { image_url: "https://example.com/hacked.jpg" }
+          expect(response).to have_http_status(:forbidden)
+          other_resource.reload
+          expect(other_resource.image_url).not_to eq("https://example.com/hacked.jpg")
+        end
+      end
+    end
+
+    describe "GET /resources/:id (отображение виджета загрузки фото)" do
+      it "не отображает виджет загрузки фото для неавторизованного пользователя" do
+        get resource_path(user_room.slug)
+        expect(response.body).not_to include('id="vue-resource-image-uploader"')
+      end
+
+      it "не отображает виджет загрузки фото для чужого объявления" do
+        sign_in user
+        get resource_path(other_resource.slug)
+        expect(response.body).not_to include('id="vue-resource-image-uploader"')
+      end
+
+      it "отображает виджет загрузки фото для автора объявления" do
+        sign_in user
+        get resource_path(user_room.slug)
+        expect(response.body).to include('id="vue-resource-image-uploader"')
+      end
+    end
   end
 end

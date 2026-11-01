@@ -4,6 +4,8 @@ class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :resource
 
+  delegate :name, :slug, to: :resource, prefix: true, allow_nil: true
+
   STATUSES = %w[confirmed cancelled].freeze
 
   before_validation :compute_timestamps_and_price

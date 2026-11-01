@@ -58,6 +58,10 @@ class Resource < ApplicationRecord
     RATE_UNITS[rate_unit] || "в час"
   end
 
+  def owned_by?(user)
+    user.present? && user_id.present? && user_id == user.id
+  end
+
   # Расчетный почасовой тариф для совместимости с почасовым календарем бронирования
   def effective_hourly_rate
     case rate_unit
@@ -99,7 +103,7 @@ class Resource < ApplicationRecord
 
   def assign_default_slug_and_category_name
     self.category_name = CATEGORIES[category] || "Помещение" if category.present?
-    if slug.blank? && name.present?
+    if new_record? && slug.blank? && name.present?
       self.slug = "res_#{Time.now.to_i}_#{rand(100..999)}"
     end
   end

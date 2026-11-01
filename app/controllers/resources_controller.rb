@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class ResourcesController < ApplicationController
-  before_action :authenticate_user!, only: [:my, :edit, :update, :destroy]
-  before_action :set_my_resource, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:my, :edit, :update, :destroy, :update_image]
+  before_action :set_my_resource, only: [:edit, :update, :destroy, :update_image]
 
   # GET / or GET /resources
   def index
@@ -88,9 +88,8 @@ class ResourcesController < ApplicationController
     redirect_to my_resources_path, notice: "Объявление «#{resource_name}» успешно удалено."
   end
 
-  # POST/PATCH /resources/:id/update_image — Загрузка или смена изображения существующего ресурса
+  # POST/PATCH /resources/:id/update_image — Загрузка или смена изображения существующего ресурса (только для автора)
   def update_image
-    @resource = Resource.find_by(slug: params[:id]) || Resource.find(params[:id])
     uploaded_url = store_uploaded_image(params[:image_file], params[:image_data])
     custom_url   = params[:image_url].to_s.strip
 
@@ -114,7 +113,10 @@ class ResourcesController < ApplicationController
   def set_my_resource
     @resource = current_user.resources.find_by(slug: params[:id]) || current_user.resources.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    redirect_to my_resources_path, alert: "Объявление не найдено или у вас нет прав на его изменение."
+    respond_to do |format|
+      format.html { redirect_to my_resources_path, alert: "Объявление не найдено или у вас нет прав на его изменение." }
+      format.json { render json: { error: "У вас нет прав на изменение этого ресурса" }, status: :forbidden }
+    end
   end
 
   def resource_params

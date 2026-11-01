@@ -2918,3 +2918,942 @@ DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rail
   [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "AlePon1999@gmail.com"], ["LIMIT", 1]]
   [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
   [1m[36mResource Update All (4.2ms)[0m  [1m[33mUPDATE "resources" SET "user_id" = $1 WHERE "resources"."user_id" IS NULL[0m  [["user_id", 1]]
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <main> at E:/slop/config/environment.rb:5)
+Started GET "/resources" for 127.0.0.1 at 2026-11-01 19:48:15 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ResourcesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering resources/index.html.erb within layouts/application
+  [1m[36mResource Exists? (2.8ms)[0m  [1m[34mSELECT 1 AS one FROM "resources" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/resources/index.html.erb:74:in '_app_views_resources_index_html_erb___546337905_11008'
+  [1m[36mResource Load (0.4ms)[0m  [1m[34mSELECT "resources".* FROM "resources" ORDER BY "resources"."id" DESC[0m
+  ↳ app/views/resources/index.html.erb:76:in '_app_views_resources_index_html_erb___546337905_11008'
+  Rendered resources/index.html.erb within layouts/application (Duration: 31.9ms | Allocations: 13166)
+  Rendered layout layouts/application.html.erb (Duration: 33.5ms | Allocations: 13810)
+Completed 200 OK in 187ms (Views: 36.3ms | ActiveRecord: 20.9ms | Allocations: 26397)
+
+
+Started GET "/my_resources" for 127.0.0.1 at 2026-11-01 19:48:29 +0300
+Processing by ResourcesController#my as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 156)
+
+
+Started GET "/my_resources" for 127.0.0.1 at 2026-11-01 19:48:39 +0300
+Processing by ResourcesController#my as HTML
+Completed 401 Unauthorized in 2ms (ActiveRecord: 0.0ms | Allocations: 150)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2026-11-01 19:48:39 +0300
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 0.7ms | Allocations: 384)
+  Rendered layout layouts/application.html.erb (Duration: 1.1ms | Allocations: 560)
+Completed 200 OK in 25ms (Views: 8.7ms | ActiveRecord: 2.1ms | Allocations: 7578)
+
+
+Started GET "/resources" for 127.0.0.1 at 2026-11-01 19:48:53 +0300
+Processing by ResourcesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering resources/index.html.erb within layouts/application
+  [1m[36mResource Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "resources" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/resources/index.html.erb:74:in '_app_views_resources_index_html_erb___546337905_11008'
+  [1m[36mResource Load (0.2ms)[0m  [1m[34mSELECT "resources".* FROM "resources" ORDER BY "resources"."id" DESC[0m
+  ↳ app/views/resources/index.html.erb:76:in '_app_views_resources_index_html_erb___546337905_11008'
+  Rendered resources/index.html.erb within layouts/application (Duration: 2.2ms | Allocations: 1603)
+  Rendered layout layouts/application.html.erb (Duration: 2.8ms | Allocations: 1763)
+Completed 200 OK in 5ms (Views: 2.6ms | ActiveRecord: 0.5ms | Allocations: 2162)
+
+
+Started GET "/" for 127.0.0.1 at 2026-11-01 20:13:00 +0300
+Processing by ResourcesController#index as HTML
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (4.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:13:01.154162')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (2.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  Rendering layout layouts/application.html.erb
+  Rendering resources/index.html.erb within layouts/application
+  [1m[36mResource Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "resources" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/resources/index.html.erb:74:in '_app_views_resources_index_html_erb___546337905_11008'
+  [1m[36mResource Load (0.2ms)[0m  [1m[34mSELECT "resources".* FROM "resources" ORDER BY "resources"."id" DESC[0m
+  ↳ app/views/resources/index.html.erb:76:in '_app_views_resources_index_html_erb___546337905_11008'
+  Rendered resources/index.html.erb within layouts/application (Duration: 2.0ms | Allocations: 1639)
+  Rendered layout layouts/application.html.erb (Duration: 2.9ms | Allocations: 2003)
+Completed 200 OK in 257ms (Views: 2.9ms | ActiveRecord: 25.2ms | Allocations: 18929)
+
+
+Started GET "/" for 127.0.0.1 at 2026-11-01 20:34:34 +0300
+Processing by ResourcesController#index as HTML
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (5.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:34:34.748813')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (2.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  Rendering layout layouts/application.html.erb
+  Rendering resources/index.html.erb within layouts/application
+  [1m[36mResource Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "resources" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/resources/index.html.erb:74:in '_app_views_resources_index_html_erb___546337905_11008'
+  [1m[36mResource Load (0.3ms)[0m  [1m[34mSELECT "resources".* FROM "resources" ORDER BY "resources"."id" DESC[0m
+  ↳ app/views/resources/index.html.erb:76:in '_app_views_resources_index_html_erb___546337905_11008'
+  Rendered resources/index.html.erb within layouts/application (Duration: 2.7ms | Allocations: 1643)
+  Rendered layout layouts/application.html.erb (Duration: 3.5ms | Allocations: 1956)
+Completed 200 OK in 218ms (Views: 3.5ms | ActiveRecord: 18.1ms | Allocations: 7233)
+
+
+Started GET "/resources/res_1793550073_262" for 127.0.0.1 at 2026-11-01 20:34:38 +0300
+Processing by ResourcesController#show as HTML
+  Parameters: {"id" => "res_1793550073_262"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:34:38.659683')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mResource Load (0.2ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."slug" = $1 LIMIT $2[0m  [["slug", "res_1793550073_262"], ["LIMIT", 1]]
+  ↳ app/controllers/resources_controller.rb:31:in 'ResourcesController#show'
+  [1m[36mBooking Load (0.3ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."resource_id" = $1 AND "bookings"."booking_date" = $2 AND "bookings"."status" = $3[0m  [["resource_id", 7], ["booking_date", "2026-11-01"], ["status", "confirmed"]]
+  ↳ app/models/resource.rb:84:in 'block in Resource#hourly_slots_for'
+  Rendering layout layouts/application.html.erb
+  Rendering resources/show.html.erb within layouts/application
+  Rendered resources/show.html.erb within layouts/application (Duration: 1.2ms | Allocations: 492)
+  Rendered layout layouts/application.html.erb (Duration: 2.0ms | Allocations: 801)
+Completed 200 OK in 14ms (Views: 2.5ms | ActiveRecord: 1.3ms | Allocations: 4896)
+
+
+Started GET "/api/v1/resources/7/availability?date=2026-11-01" for 127.0.0.1 at 2026-11-01 20:34:38 +0300
+Processing by Api::V1::ResourcesController#availability as JSON
+  Parameters: {"date" => "2026-11-01", "id" => "7"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:34:39.113255')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mResource Load (0.2ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."slug" = $1 LIMIT $2[0m  [["slug", "7"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/resources_controller.rb:9:in 'Api::V1::ResourcesController#availability'
+  [1m[36mResource Load (0.1ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/resources_controller.rb:9:in 'Api::V1::ResourcesController#availability'
+  [1m[36mBooking Load (0.2ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."resource_id" = $1 AND "bookings"."booking_date" = $2 AND "bookings"."status" = $3[0m  [["resource_id", 7], ["booking_date", "2026-11-01"], ["status", "confirmed"]]
+  ↳ app/models/resource.rb:84:in 'block in Resource#hourly_slots_for'
+Completed 200 OK in 10ms (Views: 0.4ms | ActiveRecord: 1.3ms | Allocations: 4297)
+
+
+Started GET "/" for 127.0.0.1 at 2026-11-01 20:34:43 +0300
+Processing by ResourcesController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:34:43.165723')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  Rendering layout layouts/application.html.erb
+  Rendering resources/index.html.erb within layouts/application
+  [1m[36mResource Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "resources" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/resources/index.html.erb:74:in '_app_views_resources_index_html_erb___546337905_11008'
+  [1m[36mResource Load (0.2ms)[0m  [1m[34mSELECT "resources".* FROM "resources" ORDER BY "resources"."id" DESC[0m
+  ↳ app/views/resources/index.html.erb:76:in '_app_views_resources_index_html_erb___546337905_11008'
+  Rendered resources/index.html.erb within layouts/application (Duration: 2.0ms | Allocations: 1593)
+  Rendered layout layouts/application.html.erb (Duration: 2.7ms | Allocations: 1906)
+Completed 200 OK in 8ms (Views: 2.8ms | ActiveRecord: 1.0ms | Allocations: 4018)
+
+
+Started GET "/" for 127.0.0.1 at 2026-11-01 20:34:44 +0300
+Processing by ResourcesController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:34:44.339494')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  Rendering layout layouts/application.html.erb
+  Rendering resources/index.html.erb within layouts/application
+  [1m[36mResource Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "resources" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/resources/index.html.erb:74:in '_app_views_resources_index_html_erb___546337905_11008'
+  [1m[36mResource Load (0.2ms)[0m  [1m[34mSELECT "resources".* FROM "resources" ORDER BY "resources"."id" DESC[0m
+  ↳ app/views/resources/index.html.erb:76:in '_app_views_resources_index_html_erb___546337905_11008'
+  Rendered resources/index.html.erb within layouts/application (Duration: 1.9ms | Allocations: 1593)
+  Rendered layout layouts/application.html.erb (Duration: 2.5ms | Allocations: 1906)
+Completed 200 OK in 8ms (Views: 2.5ms | ActiveRecord: 1.1ms | Allocations: 4006)
+
+
+Started GET "/bookings" for 127.0.0.1 at 2026-11-01 20:34:45 +0300
+Processing by BookingsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:34:45.129160')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/bookings_controller.rb:17:in 'BookingsController#index'
+  [1m[36mBooking Sum (0.2ms)[0m  [1m[34mSELECT SUM("bookings"."duration_hours") FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/bookings_controller.rb:18:in 'BookingsController#index'
+  [1m[36mBooking Sum (0.2ms)[0m  [1m[34mSELECT SUM("bookings"."total_price") FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/bookings_controller.rb:19:in 'BookingsController#index'
+  Rendering layout layouts/application.html.erb
+  Rendering bookings/index.html.erb within layouts/application
+  [1m[36mBooking Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "bookings" WHERE "bookings"."user_id" = $1 LIMIT $2[0m  [["user_id", 3], ["LIMIT", 1]]
+  ↳ app/views/bookings/index.html.erb:86:in '_app_views_bookings_index_html_erb__182513834_11616'
+  Rendered bookings/index.html.erb within layouts/application (Duration: 8.5ms | Allocations: 898)
+  Rendered layout layouts/application.html.erb (Duration: 9.9ms | Allocations: 1227)
+Completed 200 OK in 46ms (Views: 15.4ms | ActiveRecord: 2.9ms | Allocations: 5182)
+
+
+Started GET "/my_resources" for 127.0.0.1 at 2026-11-01 20:34:45 +0300
+Processing by ResourcesController#my as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:34:45.707184')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mCACHE Resource Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/resources_controller.rb:23:in 'ResourcesController#my'
+  [1m[36mResource Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1 AND "resources"."category" = $2[0m  [["user_id", 3], ["category", "rooms"]]
+  ↳ app/controllers/resources_controller.rb:24:in 'ResourcesController#my'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1 AND "resources"."category" = $2[0m  [["user_id", 3], ["category", "equipment"]]
+  ↳ app/controllers/resources_controller.rb:25:in 'ResourcesController#my'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1 AND "resources"."category" = $2[0m  [["user_id", 3], ["category", "specialists"]]
+  ↳ app/controllers/resources_controller.rb:26:in 'ResourcesController#my'
+  Rendering layout layouts/application.html.erb
+  Rendering resources/my.html.erb within layouts/application
+  [1m[36mCACHE Resource Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/resources/my.html.erb:102:in '_app_views_resources_my_html_erb__6779894_11648'
+  [1m[36mResource Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "resources" WHERE "resources"."user_id" = $1 LIMIT $2[0m  [["user_id", 3], ["LIMIT", 1]]
+  ↳ app/views/resources/my.html.erb:106:in '_app_views_resources_my_html_erb__6779894_11648'
+  Rendered resources/my.html.erb within layouts/application (Duration: 2.9ms | Allocations: 1237)
+  Rendered layout layouts/application.html.erb (Duration: 3.7ms | Allocations: 1548)
+Completed 200 OK in 23ms (Views: 3.8ms | ActiveRecord: 1.8ms | Allocations: 5410)
+
+
+Started GET "/resources/new" for 127.0.0.1 at 2026-11-01 20:34:48 +0300
+Processing by ResourcesController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:34:48.881055')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  Rendering layout layouts/application.html.erb
+  Rendering resources/new.html.erb within layouts/application
+  Rendered resources/new.html.erb within layouts/application (Duration: 0.8ms | Allocations: 111)
+  Rendered layout layouts/application.html.erb (Duration: 1.4ms | Allocations: 421)
+Completed 200 OK in 9ms (Views: 2.3ms | ActiveRecord: 0.6ms | Allocations: 2615)
+
+
+Started POST "/resources" for 127.0.0.1 at 2026-11-01 20:36:05 +0300
+Processing by ResourcesController#create as HTML
+  Parameters: {"authenticity_token" => "oxaM57QqO2Ua_aXdPJuSCWuX720OWNbs3Q9BUVTB3_x6aAQyCCS-UYnQsVeVag47DYtG_B9C-MdbMEsoFoXCoA", "resource" => {"image_file" => #<ActionDispatch::Http::UploadedFile:0x00000280fd2214a8 @tempfile=#<Tempfile:C:/Users/qwerty/AppData/Local/Temp/RackMultipart20261101-18240-sr7qah.png>, @content_type="image/png", @original_filename="download.png", @headers="Content-Disposition: form-data; name=\"resource[image_file]\"; filename=\"download.png\"\r\nContent-Type: image/png\r\n">, "image_url" => "", "image_data" => "data:image/png;base64,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", "name" => "Болгарка", "category" => "equipment", "hourly_rate" => "1401", "rate_unit" => "hour", "location" => "", "description" => "qwe"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:36:05.207700')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+[31mUnpermitted parameters: :image_file, :image_data. Context: { controller: ResourcesController, action: create, request: #<ActionDispatch::Request:0x00000280fe08b5e8>, params: {"authenticity_token" => "oxaM57QqO2Ua_aXdPJuSCWuX720OWNbs3Q9BUVTB3_x6aAQyCCS-UYnQsVeVag47DYtG_B9C-MdbMEsoFoXCoA", "resource" => {"image_file" => #<ActionDispatch::Http::UploadedFile:0x00000280fd2214a8 @tempfile=#<Tempfile:C:/Users/qwerty/AppData/Local/Temp/RackMultipart20261101-18240-sr7qah.png>, @content_type="image/png", @original_filename="download.png", @headers="Content-Disposition: form-data; name=\"resource[image_file]\"; filename=\"download.png\"\r\nContent-Type: image/png\r\n">, "image_url" => "", "image_data" => "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANsAAADmCAMAAABruQABAAAB71BMVEX/////AACcnJwArRGZmZkAsBGurq6xsbFoaGitAADb29sArwAAsRGxAACfn5//agDbAAAAdgsAsQAAbQD/AOAAjwC2traEhITm4OW8tLx+fn4AlQ//ANzk5OTW1tZQh1HIwMegm6AAeAAwcjLMAADr6+v29vZcXFzGxsaMn41xZnF1dXV1AADIyMiKgor/YwBUbFWtMwAAmQCxAJm6yMgAjQ6VAADbTQDuAADb5uYApBCtuby8AAAzawpsTwiMjIyoGQObJwR+QgZGRka6yL3/o6Ota1CcUjCuPDzbAL08gT9hjWOtlYw8aApZa1muYWGWo5YhSQdpGQIAYQkATwhJNgV/AABWLASuYZ/SALVQXwkoXQmuiopdRAcAgQAjVSSMNnoARACBmoEAZABcbHF1ZV+tAJJEdEWuVSh5i3o1WzfwUgCFIQOuhHUpcyyuTRXIQgAANQCVAIGMNgV1AGWtb2+2QwBtOQZQX0ZkbGRCR0I0SjR+YFR1KCheVF2uLCyxfGiVZFFoG1pjOCitUJ1xTGI1FgDbXwCNYWGNeHiNYYWfYZONOXo1Lyt3Rm5MbU2cMIpVQzxXMk10RUU8azaVKCg2iDtDSykqVysuQC5ohW1GPUYZGRl0TDuoTExeAABgI1VnVAgvGwA9DQCNQx0E1hboAAAgAElEQVR4nO19j38c1XXvsFrPrEfygLRodrXyjLQSMzvWMrIsI9syJGsiarChfqTy472QRsYRhtgQQ0lDLZtnQkia9EfqpKUtrkvTvNc/9J1z7u/5sVrtSlT4k2t0mfnOnTtz9v44937n3Hss64/hj+FwhzCEyHddOErhyIMo8COELCsOIbKSCGI3ADyEyMebKvDPjxJMD5EfQB5OgEkRSqzUCn2AgjSyAteFzBLfp2wCN3HxDG9KE4RixFLINcQDTAoJAhfShxEcJim8jx/CQ5PYsZIQkoWBG0Kq1IXnQj69wC+VLXEwwrcLrdjC260gifGF4cDCd/UTOITXtCIPE9BN8HZJQLLRmwOOv4KFbwIY3BlgtnCWpPDmKURxkoQxnLl4Flhu6lsIpfB7uG6QMjlCvBjjkQMSpWGYgriQNIG0oRsnfhgBDj9eGroB/HTwUN9PgzLZohheLMLCizGCm1mE/6fSgiPx6hbKS1AUWRElYX8Qx5QZPQbPYrwQ770aHUgIZ0RwbPjn2Lbt+BjgwPYZDjAEjmMygfP0+D+6Rrj8OQObLmr58PR45suLM/Ji3/T46HA3aaJAT3JiHEId/sZm4Azbn+VXIbTw4uWBcBshvNa+PcVxCraMzPQzY3B6WV7chrPp5i7pp2638QkF0ugnrhM5hmxjY0cmj4yNjRfIMDc+CE6vU0HZFic4npHNTD+DZ3PyYv3I2JGMbPn0E4soWyUrWQMavTqLew3qIB4L2ZxaEBvdZejqp1gnpxagLukyVCqVBj1jIJyqgQfX2osCV7I5+fQz+Mg5ebE+NT5Fsjn90i+24QFeRjbovb3iNhj+8MSJE1fmINzCqAXttlqFptt6sLKycterVr07A+FdyObETg3CPcTlL+cTjl3RipkPnq0g3oXI/xLO3r2JryKgovT3MP8OPLyCud6MCiWC38JmB/h7sLrhi1+M/U5TEKjteoPh49TWxe9qiwep/B0jvWNA9PDmNGRRt3IXzXrh1aDmt7GSUTlb2JMkupShY7kRf7ZR722ruH4Pg/fN37ZyUXMaGl09j5vtucJkE+0TQsvS21vsNaKo/7O/ObL53SgyBgpRarPzebPOUN3Q6pioe8PgRflTHWtaWgtQUXMaqntRnZTpvTaEGtRMqJNTU6LcQquaWJkQfQHN88vXX3+dtXVq09cA+oL1DYh7EIbG3+22Wq2NEyJ/7HsuU9+Az73miz5D4Xegm3qI+M5lgORLqfQ7txcXb9/FDuUhJL1XPJaME6ii8Dvl2m5BXzw0vrpcqVY6EpJ9eua5Eg9aXsWj9DROOqGVJ09/YmpiYmrFww4FkrYCUW5Rpi+xC+t3gQ4dGl9drnLZTF2cea7Eg5ZIj2MJJpvZDhGfWqnwRsdli3s0J5PF5jS+Ftkqe5StshfZKly2tBa4mmw4A4m1stbeCe4ufNfdcFUdFZ6pk2MQmGzw5ppsAtdkQ0iTTaRHfHwFR32abDD5inMTquD+0tLSI99x/Ct1CFfwaHl+ZqZd9R2/2w9XEeEbnU5to9bpdB5OGuk70OgfATT5JUItgObhJr/ahoNlmYXEK5h+Q0ItnkJLz3CYyCcbOECBUPv3rFSg7EIPfyfRdqeOHJmSbVeNA8pwM6J8sGf2Voz0hC8htPu4RKbv5PGi9B14XKPB0vuWrY8nbc8P3LK2q3RlGW5GlA827srKlJ6e8KWpgXW3ep8y3a2iDjyu0aD0QTXQaZM48FxWbkK2I0eKZSvGs+8E+dQqvNx02QBT5TaAbOJ9BpGNlRukD2uBn9PdwdLy8vJ9Nwzdm9MQbkJ3E/Tg1J9vNpttwtcg3MQjE+8ZkU/5tLrd1r1pIz3hAE1/IdO3IYt5X5xV4axZlXgHstiQUGl6fM+NRqPRxfwfsX5RC8T3NBdWV1e3oyAIepBoudOAYYQHZ/MLs9Orm4jzvPDIxAM9mt/i+UQVMz3hCFUEFG2uTs8uzIu7+W8q8DQKojYgs1/0Sb96B96z0ek1el3MfzNbYlaKRBzqjQnqW+UYtMrmGgLPj2VHxesTuj5U7VniOLbW6nA+PYxLuH5bXqX8Qzsy+pI4AUTpxLxsRePx/cBNXa/JdkSTrZRrMMclKBvmnwS2Phe33RTLbeII+13ZnA9iLpvAs+P00fE6QErXKx0j8ZlxQ2cUpBfjSSg3yj/0XdsYl2Bobk7WJ6/j+BrVYG0DNPkSjsfbDJe6dcZxZnA83t5eWFi4SjgN0SUu88ng25OTk1cVjvOD65B0sz3DEjhsbKBwUNTL8IyFW+IhBeknH9bYUKF2fxsu/kVWKiuJ4zA7j5pDtoC4F8JpZGPwjcEyzp40nkvwh5l8BF5UboI7GC/Aoy4+si0e4pWk90UU8OdGJj8ZJKGf1Rt5ro5NcSUnJ3V0KYfXd0y8a/tUYwB6SGW39Py5rmM5mn6LLRiSRY+JbFaYGrrbwW8t9DGjgA+kLxrIQzJK6baaO4pxI+cnYaJo8pN956C7cgc0N62JnqLiaekL8wnYc10n8lMrE/B3qtZ+CGEHf6Y7r7766hzWdBynVWsPINwF7d9QOI3TCScuYBGC4icpH8YrQnriAt6FO2+dEPgOpiD8LnRdv/HFTdS4CL8FWd97IKIr4mKD8nH0PsnBi/+Gz61lpbLsOKnGfCxrcDhyDLqEPYvqixlO43qBN7DV+5bkufKcT2Dg2MdQea5fevrpp08jRHz2itKrkDWSPCKCi0s4v45yRYacxTjXDXES2zpJHtG3SjFO17g3TTZDhxbgWOpVTbZyLlDIxtshyHb86XeYbFwXqzEDfpVQEZMtsLJNTdfpURJbOqcQ+UH0uMgWx6nR3NI4kHNH4sBF2+1APVs2656jcF6H2bviDKNq8JNlPCeXTehPqpPvqDop6jbpw0lZJycnYBCyBL3KLnUycqzcsMQKcGK+cQUCUX4bOEu5fhtCR+AdNZ4AeLPneV7tdQjUN2Cq2rXLly8vtjGVxBk/aeBX4OzyP/4WAvY9lY9Onz79l764eAsfCVOkVo3GMfQ+GF2Ds4VHyB3U4OJ9zOKO7Et24MabJX2JG9han84i9g1hYmJ1WXTDDe13mpjIcD5YbvjNYQDe8gR2C29BaT39klFuXGeALlmicT2U20KbP7y9OMXLDfow3ueZfRXXATDpTsx5gO1kdKXi2YlXVDq6YDxOEbY3xcuXtweLt6u3nj5+XMjG25vU9dSuaFy/0NbHDIQXtX9ddzuBrTe4xE/9mDizrGwTnFfMyjZRIlseL5t37SYbm4/lZRPlViZbYDmhrgNi/C9oiWGpHKC2F6B1Y7lV1ZiY8toeGxtby8jW6/Xak3m8IP0PsW/4e5DtuKyTp5VsSEYuwdOWZ+FggV4Fo0X8Rr2EfRiO0ZdkfytJUC5bDPrMIBUwNLe3trY2u7Va9x4cbN3DI6Qs73e6te4G4QvQnq+g5cPy/Px8uwIHLV9GCQTEbeqT6JNpPv3N09hxfA/CX9IR/L2zsLa1dnVe5gNJ5+Fx3ft1nEPhq2xidBVnO3hUryMEJ1vX8CHXF3gfs+HB3d2sVJadJg7rc6ntrhhzPhp/FPCNe+UnKf1L2IOcNqJL5/Nzn46Ya2LPb0YTs7Mcp+/dqo9psfFwaJvfu2OYh8ekK6l+I6+o5urUdgv4xr3yk1w2aGWn9ejpS6v5cX1H9CWm7sboyOwsx2mMofoYodP92NH7EjsNBy238T2W2/ju5bY6ZLlNsHKbyJRbmKY5k7Xm9tra2iYyd3eQS7sDB60O/NUY34g48ZMhhKobuv4M8pN41jMixkN2IdyT6QnH9K9jU/vIiE6vIfe2DoE4QqQgm/chi6Wt2dnZ7dlctCXw1UWclyyuwtF9OHjbh4c08vNu6iqjZjOyG9DddYif7OER/HXXzq+er+NZF1NUkHlErnOJ+EDiIY0o3YL023EURZ5MTzjyn/Xjly5d+uiSHn3ve9BhvoNnb60ig4lRHbKYfurcuXMXzuWiZ54pwZ9DzjLXl6SJ1WNHcn4tI03PKB3QUXxgrr315Se3CurkJXH2Fg7UJydYdGT13BNPPHHsiVz01FMl+DpJENpx7Bh9SaUbl8imxgdVQzbJB+6Jn9wq6EtQd9MZyqb6DJLt6BO5iGQrwtd5QQWebr9mh1Yiys0cVIo2jX2MNp7kbX2ihIcsxad2KTe4c3KCR8OWm+9GOTsoJltHKF4Z3SceksyLaNyNZCHHJxeuG98W6SLykMRbwhBdRoSj8hUaW0UffSTO/nML71zgUf3MsaPHnj12NBMdO1OGrxdLFAv7SVlu7ds4MKJx9zK34uA2aTjJkvOo5+RP9yaOzF/A349+7z+B8FMZISGwetwosgeYvyo3PHvTKIdzZeXTv9ygYzQ6lCCJbSFb8bjb5OqUrnxeVvk3sQ94QbaHjGzYfmS7ougODhBUe8Nu5M3B2lX/9ub6carzk7ETc/vJb75slhsa9pNO5Mq+RMh2m/NKbE5BvSaTTeBKtkydfKqwTk6tXjLq5B1Mr9VJODPrZGnd618nXSe2i+0nU1T1XYyuvAoBj1otASED4NyUuAdnvf8B4dcY7SCORz/9KUJ/DuFvZPRvePF/Q/hbGWH6ub+Dg7+jaA5Od2Rm/+s73/nOX/0VRHiQicrwPyu1nz9cATmLVdAxU5NTuagMn2W2anFC6xkOb6jr4/2yeUAG53Z4URLHubHyYQqjyBanQW7efZiCrHtItGWiUpzL5liVnA3GYQq/f/HFF99/H6I/ezEXleFvHOpWpsIIOiDwrYKZziEKo+huh9aWHd4wypgrTtx+ssUQWFSGF1zczzCCbKDfCuwnz3z44Ydv0MwGTRK7GP3GmOMoHKKkjRxh3uZhX8KzL7zwwoULEL3xQi7qiz+rZaJp8fWzTz755Mde0Rw0Nzc1bWH2PwzVlxCO/CQfT0a+1OJMtkoxd5DhFEzuYP/DUHWScFySyu0nUYtbumxYbiRDQbkp/DCXWxhyOwWuxZFDfP4UtLcXkYesuZxSdDfgbGlhenp6W+HNMGz2wjScWZidnc3b9O1LOPPUU0+98AJEeJCJ+uN8TawWkG+shXEU28RK4oTmv96D8Daykl3JVjKuE0I7iqLniCc8GNm2z58/v7YGUf18LuqLb2uZcC3eEXNNxeG9DDX0ybeNualpF7TO6sCBBPxeh2NiyVZqvGVfvG6FSSLW1zIt3hEcQV427VtHgWxHD0i2IeYBhNdxUbbDODyuxTviW4HiJ5lsxrcO/t15YuJrKLcJ/KahsZUq6ovXraQSCPtJpsVRR3doraOkJj//+IMPPmZrCgzK8ku0FyD7gjNIDB6MbNfhIZubaKcwmYv64tfzeZH9IUr7/EkorZcNXlnZNim7E9IBq1MwmT8Y2YifLOGV++O4jkosqGJaXH77Y7IZ3wOkXUBmHeIh1d1ukAgbQ6bFHyPZrCDmsoEORi0ubU802ahOttser5PGemr57eLwjUsSLxD2k0yLf/XjH//4E7J7/BmET1BRM0uDBw8e3KK+5F0IbD11tderrqC94g/+8Ic//N+Dka3vN42+uJ4LG5+cgtI6i/OfAhsmZvMklq3K9dRTq+cOTgeMUG6xI+wnuRaXshXYMEmbp6wt1LmD090jtLcI1BrvKJkWf4xki13xnZRr8VNPnjxZXCeneJ0kWyiPH9Ea/0NaJ0M7MOmSmu3ZvU63291AO8YbP4LwO+w47u7s7LBxie159o0PfvSjD27gEdor9r7/rW9964A4hb+ArL+P+X/3W7moL268D9Pi5hrI11ARfGKMSxiOQ8zXLCv7XXv/wwjjycCOuf2kG5EWl7ZKmmyG7pb4SZLtoHX3CPOA2PKF/STT4ky2SpFsbP5WItvBldvQ87cojLnNE2pxGk/GlotrezrIPL4GM+6Tn0i7oJaOv/caThw8OAvXxs6PHZRsY2Njs2g/iQaZmagvDnWSdjHTAs1xPv7www/fT5MkaTwHoZdCwMg5ZeBkc92DMxvxNw5GtjeeeeaZY8cgOvNMLuqL6+/DtTitj0ae6xSCps3LuolLW3mF738YRQc4QYXzk0yL01oG+a6mrdK6ics1DoPI9utPP/30QrFNS98wyjwgFmuguRbfQ7m19lJu/4EPXncLViP0DyPp7ijhcxymxX8DartD7SrkrSxl9pBw8LyBh7VWq9Vl+NmzZ88MIpuVpq4dOXv4Kobt7ehRbD/P5KL+uBVHmU8d1O+FEHlxFLHoInaKNhylGfzkyZOEh1k+sFy2JPUDPyrZY6oo9LWT7ItruwpyLV5gf3wRatzJ5/vgg+i3/3gCnrduRTFuFjm4aCPVySSU9pOkxYeVbbdxyd/8FMIQX2hH6UuiiO//FzAtXmBbLWUISvBBxpN/jgZPrpVGAfYnbmzbg8k2CqdQCbjhHWhxtMaoybWUuNUjRs5XH3zwwcctOOoV4bSOu16v7zIP4LIlaRqESeD5vtM/vQi/v3DhwpkzED17IReV4p9+euZCAV8qy+156ClOvmxM1phNmoEzHTDA/I3LFiaRE3lBI/QHtNiZnJqYWkX+M29HUo7zvioUGodr8X4cHpdNx5lsA3wPMNtbbvluaRjBLsiNcBdYCkyLH5RsF+G299aRSwOlswcdMIJsuBcS54KYFi/iJwVJmZVN1skBvnVQx7Meu0lsu6mTDjw8qRvrN8rWdZg4lw1mNvxbB9fiyE9+xvhJOLohpje9zz/77LOvTJx4y0/g7Mc/+Pa3v/3/BpENxiV+0LN6wYC95JDfOprZXEr5SacEx3mA9zHg763uzisL2VwYcSVhUmzbXhBGKLfIEZYXYZKiFi/g8GxDNpPbq6BsZ2d3192fgMI4peYBg9fJEWwMLV9sm8i0+EHJ9gu0TIYxF9toe/AwgmxxIH5CrsUvnMzxk2V1ksmGA+YBvr/9Ahdewlg57Nl7skUdSr8x2ULb9YxneXL8gebWjIfEddkbN27c6GRwMUKp4vjg94PJljrBnqZww4xL8vaTqRyfq3Gj4rM6Yl/HDE5z1gF0gKiTbuTuZRowiv2ka8fcflLT4mq8r8lm7F9gcniD6O6lX/7yl//4dc0DRJ8VCvtJqcXLZKuMIhtumjDeDPYyJBlVtiC0uP1kYkuLBRfn1zbaRTIeEifZqMBrDIczhcMMPA4HkW18bGysCb9k4AfJHgQcSjaXjDrhOXn7yfULyIt0kakMn3subKRJkvZCwZfgWUPiEKX2wtra9NWBZEtANjfdQ4u7Or22NjkJ+W9O56JSHNd963MupcUL7fAKeK492eGxOgmtOvJjfw8abphxCeF1nNkI+0mlxYvsJwv4yT3ZT9bwG9cQfckoNk9xwu0nlRY/kHIjMjOIvASXkFugVAcsu1HKzY742nVNi2vtjTU1aFyyvb3BWxnH8Qjb29ou7Y1I6CCo2lYSpBZ6FRlMtqtrrF2tba7lor74VavQSBz7SQv7SeosGT9J9pOuwD2JP4985gD9ZAureOBCLxnZVsvyogGn3qPwXJKhBC3u8vZQwNWR/WRm7yHJcw2i37rw2zRc9LQSQu/MHPAcsGxRVe2nILV4iWzZfZX2JBsy7ekQCwlGKTfb4vaTSotn94y7KOwnW3lcyXb47BTgLflohGtxnAdUe3yAz6Kv0FhhA7+BKH4SJwOIf8DsJ3efBwwb9sfmiQXxLb/6NvGQFX2/x0DylhcRUjrggO0nhy23WNpPMi0u7RTefpLzWRk/DsRzXRTQYbYxjKqWsMMDLe48VrKBuuLfTVOmxZ28bNJOUvKW2To5eyjtJ2G27TNVw5X4Vz/72c8+a/V61Q4SjzeqqLKp40Cc+hLC5R5thA/ATw4b/hqy/gHm/z+/nYv64n9t5oPS7YGflPivDtKGfoj13aucL3WF/STX4nvg8CT+q8O59iGq4ATAYq9aYj/5TZUNXlAsgfYtG6Q8JfjJjJ+aU2W8JeC/OkD7yaH4Sa5vsxYfNRyXMB8SxENCYB2HLb6nOjkcv5sW7EO9L+HZo0ePnjkDER5kov64ngvbHDVjP2nYSWq85ddmPzmKDkishK/tY1o8bz+puLoibu8Q6+7YjoT9pF1iPzmYbIex3GxL7BnHtLgXRVGIE8mOwUNGiMMEDKbckYkjPzmAXdCw4cywdkG0JtPcB6NBdpJnz559MdRNuTT7SQMPae7zMaY/GNlGsOfSAtPi/fisIty029v/MMq6Ds+qcn6SafF+PGQRbtpb7n8YjVMQa8SYFn+Myk2TjWnxlrQ/xl1bGeWPxskNiROUCKNlWqt52O2VeWD2k5ZFPKSFU5zef50UPCTiDu0/iVOii4ST3zGy6z6QAONJshsvGDf2x4338UmLm3qMpt0vGzaGtDaauPQ92U8OLdsI6wOqFncgzLX4QLJV87IdwnUdIEKPbxRqk2dh037Sq/L13bpsYo+PPdlPDi3b8OtxLC6OJbS4Zj/peXYNN6L9XPCQzMftDbRYwItfobFCF9ddHfp1VCyY9pPE+cg1DqZ9nrKrbBzO9W9WLCwvuBYv4OpMPw5Fa6MPcN49Gj8ZSt2dt5/8Rstm2dLygslm2k+aspXZVfYOaZ1MLdPX1ueCh2x9BuF3SBvQCtMMPymcUlU/v3jx4ld/OOzru1mQfBb19ep7dz9+8r3Vw8kpuMIvLWpx25DNsFPoy+0NYGM4bBilL/Gk22mmxR8j2eAFRXNjWlzaT6rxB8nej58cxH7yv0M21zLtJ3HBRlXuO/O7jyHQ+m4YlziKn9zBLauF0xuncubYsYPad8YeOui5xHJFQiDGjd4nyEN+ImzlFT9J/rKlr4OD/N69L0HT4mouw2Sr6Lqbfg/T5+5B7vO0P8E27Sf3KtthLjdNi7tpFMU2bp32FfKQtL7bi4IoRbyN3htu4pZqN7kfhwPdV22/A9pznX1fuO5dx3WlrWoYhjN19F8Tqq3w+GZ5B7kf3v6EUHqXL1sPvLsv1kMaNC1eto57d/+WhzXYpv1kwfr7b2y5aVo8OPPhKeIhkwZu6dp5GwIekS+K6wzHCP1FoZP6NrbDTWQrE4SS50RIZJAXXzJCBsKz+eeMMD9M6GMTx3SAxkNCQB4ylDhanVdvj50/f34G8HU5Hn8foLH35dinJZL+E0JvwsXx08ePH2d+cODv+D0J4eml6bHzYwvmGGoBoDXaZwOzNqJSfKsJnYexiNy3Qt1+soCrK/NLuy7HdT9BivAnUja5X+WvSbYJw7+D6fJB+KOa2DJl2xqCn5xuxp7sGDHEtmXYT+6LbNU9y3YkK9tw66hsaTBJQZ0qHrJQNrHt2KLwoavq5E9wQ7mfiDniuV6F7zjHZDN9V5juLJiPtKnxqS1zrrmFe5utQkQeWxeYufUu/CTI5pp1MiKzp4pt8JBk1vTyyy//SPGT5K8SXWfeunz58r8Q/s+vvPLK/4G/Vz5Hp5Wfv8JP/xnpzQ6m/x1C/4rpTT84j76AQNDP0VnmbUhxTdz9Cu0rT341FyH6ErO+hj7yvvunEDD6/vf5QSb6bomtfgHPJft65nPV9G9KOO0zauUiWsWk0hP+jlFuyqXRSyK9yoL8ZM4bOPlXl/Wizzoq36CBoPl5xfyk1NF9/cxm5uNl6d8x2ptyRfVSPp8CX9k4Rtfac+lao9iOAsN9TCDsJ7/5suHHDd3lg23Zwn5SrOPO2EkGwldusa/UXFSU/vRudVJlMYfO/kg2iZMv3kHqZIS7iWQD8ZPdRqOH9pOvKTvJW6+++uq7pj/uGkyCego3/WgXpCefu7/pdDp3sS/5ORx0fi7dbP0Desox/HH7t5C4WJb+vqWr7xvoZ2dvvrZYn0m8ldxjTP2I9bwP3ZbYf3J337o6PjV1/hK5QYPwliw35m/R8KMuy63Iv3r/cgt9Y4mdTyMqLpuweVKVfzTfuiZO/qjQfR1zSWvqbjXPkO2taP7Rv72loUEFucw+6PGQzTXLLWSrtoiHlPsVmnWpxN/zeEmdLMXJ19bfF9TJ8wCRDEy/QccxNm9xn/IFdbLUL1zJPmDoV68i7Sev4PYLV2h9t9gvm3oKxBceEm8J6asGTunJP18Z7tG4hPbX3oGgOhRz3+2a8AvYke8j+yr/6sLkQl2mR5++C/fEnRtBdu0/YydN+8kT0ldux1iPc0L4dM3xlrpv3TKc+UR+XWy5/VtZeDf1Xbi5v3dj30ut/NEP47InfcPCEEb4mPVaQWguHQyTWFRmZT+puDpzfbfpz76M2yvl/Eh3vy4mCb+Vje6m/sWSrbnoGPteZtqt3H/W9A2MshlDysRNlWyVItkq+yjb00o2o9yKZNP2vdRk0/2Jm7LBe7qmbJFD5VYNgiDFRYod4iHRvS3xkLS+O202I3T0QPzk+TvoldeD9AnhgZ4+qEqc0hv4S987fun4Oz3hROK3xy9dOk5+aXd0V7iNHt6JPne7ZM8Z8YdQFhE6rd3qip1j7pzH9xF31krmAcg3Pv8h2kMylxwQmL+OBvrrwAXUaJZBL9BwIfQYb7k2fbWppw8lTulrJo4+erdnp6dnr6EvwNtI5Hrr6+sv1eDsvsRxR90uJttaQnx6bW3tC+E/pLk5uza9gHiHkuL7XMM778NpLQjNLfdCzxUNtczebnn1CPcPTVsFVcRF0D8l/NeREr8sYlWv9N9Meoz6sKUpjjMHDDgbpb2PEdfGpXWBa74aND/Q5oah3Bajn52k9I+jtQeTnyzgLcv86Zh+t7ls+j732t7UyxzX5hNmX2L68wTZMn7flA4oL7cJrdyMfejLecsyP0imv3Sz3KaMcpsoKbeJbLkpv+uxuWMDX0eFTurbL546depZ3/Bbz/xRoRNcoSE7XeInIUF7E/DrZnqJX6V14ia+jV7v4W/rGlzsXoODheXET2zQxd1HEt/AaBPO6vcFfktQoslVgTNdvwQB89l61CXdXRi2x8bG1uRYiY3rcP9bmkeZY6gCvCC94sskHrRwK3vaz54qFB81K58AAAaaSURBVB1Ve9VWQ54p+xU4W5b4Cmaxgnv7S5zrKpjXrYg7odxM3R2x4WXBGLdg/rsHXJNtXLYrXY8p/+Cm/50i3NRjSu9Jfcv1W2JuI+IkX6Nsuf3s1b7bfXFz/NHQys0clyTmlgZpQJ1JwZxyTvCQmX0pFZ7lAvT0yt6BeCvZZ5iuwdV+6dKSKouzcSMfx2b2Vz+hjydRB2R2a2AN8DrygW0cbb8OYceDcAeZQclPMhzH4wrvQapaAU585sqVK1eI57x1GwLhNH4nnlMO+h/C2R3C8UvmXeNi5w6c0azj4YKYfygcX3EHs74r8rlX0pfQtyjJ4dxu62tpXYGPZ7ggppdyeIbPbGBb9y3Z13M/O7yvF/4JeDlAkOWwvApnpHvMcuO47IBEPtPNwDb6ktSW8wDJvWV8xZRxeFLnFnF7Kr2y5+unowvajxozmO3NHEuofKabqdmXuOxLx+MhW+AaW4i4SSDrmFYn9fFHUFInI1nHCnhLlV5+fyX9NmSdLMCl3xdVJ63CFndtbm6O84onTpzYobk9zuG/NHE5tyec+oAHEO6i4UZZ+g63nbKr1xYXF79cgfSyWyD/O6wvwSw6lJnqM+CMGIO7efwh5LV4z8inrC8xdQAOG1m5lfONwm+OcJlTLUuvfTfHNbDtrA7wynWAV6IzPKwv0P0v6pnh3nYVU6oGk83Q3fiqrL315eSM8XhpetPewWwnA+ruAtxst4JTaBj9pM9mq4+HbFHPnL8xVb49rvOKHjZUVsfGS/hGwFE2Zr1cK0nvZ2QTfUOmji3r3YLyDsXqquozDJx8f91WmcEzumXfFmdmZtqKV1yAQLxiy8TrEDTcd3wkKv2dfPpWp9OpPZzE9JjiOhxt34cZySPZ/GWk+fTF6Bpm9kjwk4/w7Foe34AHzdTkTfAaftXNbCkYq6mqW8IrDoXT9/EViefnlCoy575qrsnLR5/LKpx0Bk2V5Z7Iruua45Igkad75eT64mTXgDqX4fn2qSJTFyuOwGxXGZxkqwjjCcEphsbCgFjtBrbvsnmabAavaM7TULaJvGxsnpaXTZu/ZWVzHaNSBo6qk/PNZrMduG5wcxrCTTzCPdEShZP95GA4foG8M8vzaW7CEXJvLc5D4ldMcbSE3F59GaGe8HvL+EmA7uPZIir2L1ZnZ1fvQwrCN5A9xeQsHw/3buuzo2yzDm+y2QxDt4q8YhUtKSFy5ycF3mD85CD49jIOVWQ+bTyCHzZoT8MbLjLfvfiucNBdgrvv07iEIsxse3V2dWtJnBF+bVak7yKO5iAdkc90GxlMacHLQ6San+Ibc5wcx6EuVAwOrxxX/KTKDMPMuM5PQh1jfQPULD2S/KQGlaRXPCfORQ3hYsXp7W4nqXT6rngBP8llK+4binznlfCQZT6Arey+25FSeLvbSapx5q54hp80yq2oTzfVguInC3jInA9gWW6pbahvV502r6KPCtS0+CXQRzU8g0fku+I6QqQru/OD4FfRHqEj85E91gyq/+sFunjJUOy4r/y2+uZIPKRMr8YA+IzrmKNjDRoYtzOe4yGxXbVvD46b+ViyAHGtrmAkeftRPn3z7Y3P30R6Oa/T6gUPmS0gizbyLOPqsF2p+r07buajspZ6SfGNhfPxYn5S6nqtPbMQmXv4x4bVwn+HbEXj+kxfUsIp5GSzMsKUy5bnJ0mG24PjJm+5S7lxfo3Lxua+UjbkxlW5oV0lJs3JlpkJZD7tsxfAZVVX5ubmLvdwn8kKnDVolI9hZXCcIspHKprEFulrIgIlDAeQam5F4g+Qm+iKsx28uCPTvwtnD/AMJyeDehN6XANWpDjEUsSI9r5AI+0Iz4i5imh2RH8RNwMLcKd3sqLFHfTp7gBvpK1IMX0UkV1txO+OIpftAxAFdBZi0pBvDRCRl5lY3I1vEgWIRTHdSEkhSrmpboSZ49PpIW4fL2VBQlFiMe8TCcrqRRYz1Ka9/30Xu1T8w5k7da9J1GP3WHaCd6f8N0rwVWI3hV8H2VAY1gU2rkTrQZTAPCQgp3M9nJHYfoAQYqkPTwzxgC6ijzO4EKZJCGe4n0USRnQ7/IXoUs61egEUgofbXiSuXTLttugei4bSIRaXjZvregGXIWVSQUweblAa2uIRXaO6rsdFdumzSUjp8Vd3YitOHQYFsQulY6Xw6pEbBHGIRQ6ZxVgWAIFscQAFhngMgsPFiI6ghOEGzAIuQgWAU/iDtwugUAMoLihaLLIwjPe6j/8fwx/D1xv+P+njUUGm7AqaAAAAAElFTkSuQmCC", "name" => "Болгарка", "category" => "equipment", "hourly_rate" => "1401", "rate_unit" => "hour", "location" => "", "description" => "qwe"}, "controller" => "resources", "action" => "create"} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/resources_controller.rb:58:in 'ResourcesController#create'
+  [1m[36mResource Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "resources" WHERE "resources"."slug" = $1 LIMIT $2[0m  [["slug", "res_1793554565_493"], ["LIMIT", 1]]
+  ↳ app/controllers/resources_controller.rb:58:in 'ResourcesController#create'
+  [1m[36mResource Create (5.8ms)[0m  [1m[32mINSERT INTO "resources" ("slug", "name", "category", "category_name", "description", "location", "capacity", "hourly_rate", "amenities", "image_url", "created_at", "updated_at", "rate_unit", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING "id"[0m  [["slug", "res_1793554565_493"], ["name", "Болгарка"], ["category", "equipment"], ["category_name", "Оборудование"], ["description", "qwe"], ["location", ""], ["capacity", nil], ["hourly_rate", 1401], ["amenities", "{}"], ["image_url", "/uploads/resource_1793554565_3121.png"], ["created_at", "2026-11-01 17:36:05.217036"], ["updated_at", "2026-11-01 17:36:05.217036"], ["rate_unit", "hour"], ["user_id", 3]]
+  ↳ app/controllers/resources_controller.rb:58:in 'ResourcesController#create'
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/resources_controller.rb:58:in 'ResourcesController#create'
+Redirected to http://localhost:3000/resources/res_1793554565_493
+Completed 302 Found in 22ms (ActiveRecord: 8.7ms | Allocations: 7455)
+
+
+Started GET "/resources/res_1793554565_493" for 127.0.0.1 at 2026-11-01 20:36:05 +0300
+Processing by ResourcesController#show as HTML
+  Parameters: {"id" => "res_1793554565_493"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:36:05.333140')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mResource Load (0.1ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."slug" = $1 LIMIT $2[0m  [["slug", "res_1793554565_493"], ["LIMIT", 1]]
+  ↳ app/controllers/resources_controller.rb:31:in 'ResourcesController#show'
+  [1m[36mBooking Load (0.2ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."resource_id" = $1 AND "bookings"."booking_date" = $2 AND "bookings"."status" = $3[0m  [["resource_id", 8], ["booking_date", "2026-11-01"], ["status", "confirmed"]]
+  ↳ app/models/resource.rb:84:in 'block in Resource#hourly_slots_for'
+  Rendering layout layouts/application.html.erb
+  Rendering resources/show.html.erb within layouts/application
+  Rendered resources/show.html.erb within layouts/application (Duration: 0.2ms | Allocations: 95)
+  Rendered layout layouts/application.html.erb (Duration: 0.7ms | Allocations: 407)
+Completed 200 OK in 7ms (Views: 1.1ms | ActiveRecord: 1.0ms | Allocations: 3667)
+
+
+Started GET "/api/v1/resources/8/availability?date=2026-11-01" for 127.0.0.1 at 2026-11-01 20:36:05 +0300
+Processing by Api::V1::ResourcesController#availability as JSON
+  Parameters: {"date" => "2026-11-01", "id" => "8"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:36:05.596200')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mResource Load (0.1ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."slug" = $1 LIMIT $2[0m  [["slug", "8"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/resources_controller.rb:9:in 'Api::V1::ResourcesController#availability'
+  [1m[36mResource Load (0.1ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/resources_controller.rb:9:in 'Api::V1::ResourcesController#availability'
+  [1m[36mBooking Load (0.3ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."resource_id" = $1 AND "bookings"."booking_date" = $2 AND "bookings"."status" = $3[0m  [["resource_id", 8], ["booking_date", "2026-11-01"], ["status", "confirmed"]]
+  ↳ app/models/resource.rb:84:in 'block in Resource#hourly_slots_for'
+Completed 200 OK in 8ms (Views: 0.2ms | ActiveRecord: 1.2ms | Allocations: 3648)
+
+
+Started GET "/api/v1/resources/8/availability?date=2026-11-05" for 127.0.0.1 at 2026-11-01 20:36:09 +0300
+Processing by Api::V1::ResourcesController#availability as JSON
+  Parameters: {"date" => "2026-11-05", "id" => "8"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:36:09.796226')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mResource Load (0.1ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."slug" = $1 LIMIT $2[0m  [["slug", "8"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/resources_controller.rb:9:in 'Api::V1::ResourcesController#availability'
+  [1m[36mResource Load (0.1ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/resources_controller.rb:9:in 'Api::V1::ResourcesController#availability'
+  [1m[36mBooking Load (0.2ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."resource_id" = $1 AND "bookings"."booking_date" = $2 AND "bookings"."status" = $3[0m  [["resource_id", 8], ["booking_date", "2026-11-05"], ["status", "confirmed"]]
+  ↳ app/models/resource.rb:84:in 'block in Resource#hourly_slots_for'
+Completed 200 OK in 8ms (Views: 0.2ms | ActiveRecord: 1.1ms | Allocations: 3646)
+
+
+Started GET "/api/v1/resources/8/availability?date=2026-11-01" for 127.0.0.1 at 2026-11-01 20:36:11 +0300
+Processing by Api::V1::ResourcesController#availability as JSON
+  Parameters: {"date" => "2026-11-01", "id" => "8"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:36:11.197426')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mResource Load (0.1ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."slug" = $1 LIMIT $2[0m  [["slug", "8"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/resources_controller.rb:9:in 'Api::V1::ResourcesController#availability'
+  [1m[36mResource Load (0.1ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/resources_controller.rb:9:in 'Api::V1::ResourcesController#availability'
+  [1m[36mBooking Load (0.2ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."resource_id" = $1 AND "bookings"."booking_date" = $2 AND "bookings"."status" = $3[0m  [["resource_id", 8], ["booking_date", "2026-11-01"], ["status", "confirmed"]]
+  ↳ app/models/resource.rb:84:in 'block in Resource#hourly_slots_for'
+Completed 200 OK in 8ms (Views: 0.4ms | ActiveRecord: 1.0ms | Allocations: 3640)
+
+
+Started GET "/api/v1/resources/8/availability?date=2026-11-02" for 127.0.0.1 at 2026-11-01 20:36:11 +0300
+Processing by Api::V1::ResourcesController#availability as JSON
+  Parameters: {"date" => "2026-11-02", "id" => "8"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:36:11.830904')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mResource Load (0.1ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."slug" = $1 LIMIT $2[0m  [["slug", "8"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/resources_controller.rb:9:in 'Api::V1::ResourcesController#availability'
+  [1m[36mResource Load (0.2ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/resources_controller.rb:9:in 'Api::V1::ResourcesController#availability'
+  [1m[36mBooking Load (0.1ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."resource_id" = $1 AND "bookings"."booking_date" = $2 AND "bookings"."status" = $3[0m  [["resource_id", 8], ["booking_date", "2026-11-02"], ["status", "confirmed"]]
+  ↳ app/models/resource.rb:84:in 'block in Resource#hourly_slots_for'
+Completed 200 OK in 8ms (Views: 0.3ms | ActiveRecord: 1.1ms | Allocations: 3643)
+
+
+Started GET "/api/v1/resources/8/availability?date=2026-11-01" for 127.0.0.1 at 2026-11-01 20:36:12 +0300
+Processing by Api::V1::ResourcesController#availability as JSON
+  Parameters: {"date" => "2026-11-01", "id" => "8"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:36:12.193090')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mResource Load (0.1ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."slug" = $1 LIMIT $2[0m  [["slug", "8"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/resources_controller.rb:9:in 'Api::V1::ResourcesController#availability'
+  [1m[36mResource Load (0.2ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."id" = $1 LIMIT $2[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/resources_controller.rb:9:in 'Api::V1::ResourcesController#availability'
+  [1m[36mBooking Load (0.1ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."resource_id" = $1 AND "bookings"."booking_date" = $2 AND "bookings"."status" = $3[0m  [["resource_id", 8], ["booking_date", "2026-11-01"], ["status", "confirmed"]]
+  ↳ app/models/resource.rb:84:in 'block in Resource#hourly_slots_for'
+Completed 200 OK in 10ms (Views: 0.2ms | ActiveRecord: 1.1ms | Allocations: 3639)
+
+
+Started GET "/my_resources" for 127.0.0.1 at 2026-11-01 20:36:37 +0300
+Processing by ResourcesController#my as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:36:37.270593')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mCACHE Resource Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/resources_controller.rb:23:in 'ResourcesController#my'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1 AND "resources"."category" = $2[0m  [["user_id", 3], ["category", "rooms"]]
+  ↳ app/controllers/resources_controller.rb:24:in 'ResourcesController#my'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1 AND "resources"."category" = $2[0m  [["user_id", 3], ["category", "equipment"]]
+  ↳ app/controllers/resources_controller.rb:25:in 'ResourcesController#my'
+  [1m[36mResource Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1 AND "resources"."category" = $2[0m  [["user_id", 3], ["category", "specialists"]]
+  ↳ app/controllers/resources_controller.rb:26:in 'ResourcesController#my'
+  Rendering layout layouts/application.html.erb
+  Rendering resources/my.html.erb within layouts/application
+  [1m[36mCACHE Resource Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/resources/my.html.erb:102:in '_app_views_resources_my_html_erb__6779894_11648'
+  [1m[36mResource Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "resources" WHERE "resources"."user_id" = $1 LIMIT $2[0m  [["user_id", 3], ["LIMIT", 1]]
+  ↳ app/views/resources/my.html.erb:106:in '_app_views_resources_my_html_erb__6779894_11648'
+  [1m[36mResource Load (0.2ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."user_id" = $1 ORDER BY "resources"."id" DESC[0m  [["user_id", 3]]
+  ↳ app/views/resources/my.html.erb:108:in '_app_views_resources_my_html_erb__6779894_11648'
+  Rendered resources/my.html.erb within layouts/application (Duration: 2.7ms | Allocations: 1552)
+  Rendered layout layouts/application.html.erb (Duration: 3.2ms | Allocations: 1847)
+Completed 200 OK in 12ms (Views: 3.3ms | ActiveRecord: 1.4ms | Allocations: 5574)
+
+
+Started DELETE "/resources/res_1793554565_493" for 127.0.0.1 at 2026-11-01 20:36:41 +0300
+Processing by ResourcesController#destroy as HTML
+  Parameters: {"authenticity_token" => "ghmnWE86ypkikK2LtJQ3lBbMFbjsgJ-sglOm-y-x_kLz8_PJDHjg6NZGfP9SE7XExcR_inB-uHv5MzvxDMMBRg", "id" => "res_1793554565_493"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:36:41.995484')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mResource Load (0.2ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."user_id" = $1 AND "resources"."slug" = $2 LIMIT $3[0m  [["user_id", 3], ["slug", "res_1793554565_493"], ["LIMIT", 1]]
+  ↳ app/controllers/resources_controller.rb:115:in 'ResourcesController#set_my_resource'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/resources_controller.rb:87:in 'ResourcesController#destroy'
+  [1m[36mActiveStorage::Attachment Load (3.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 8], ["record_type", "Resource"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/controllers/resources_controller.rb:87:in 'ResourcesController#destroy'
+  [1m[36mBooking Load (0.2ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."resource_id" = $1[0m  [["resource_id", 8]]
+  ↳ app/controllers/resources_controller.rb:87:in 'ResourcesController#destroy'
+  [1m[36mResource Destroy (0.6ms)[0m  [1m[31mDELETE FROM "resources" WHERE "resources"."id" = $1[0m  [["id", 8]]
+  ↳ app/controllers/resources_controller.rb:87:in 'ResourcesController#destroy'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/resources_controller.rb:87:in 'ResourcesController#destroy'
+Redirected to http://localhost:3000/my_resources
+Completed 302 Found in 156ms (ActiveRecord: 15.3ms | Allocations: 14662)
+
+
+Started GET "/my_resources" for 127.0.0.1 at 2026-11-01 20:36:42 +0300
+Processing by ResourcesController#my as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:36:42.254171')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mCACHE Resource Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/resources_controller.rb:23:in 'ResourcesController#my'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1 AND "resources"."category" = $2[0m  [["user_id", 3], ["category", "rooms"]]
+  ↳ app/controllers/resources_controller.rb:24:in 'ResourcesController#my'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1 AND "resources"."category" = $2[0m  [["user_id", 3], ["category", "equipment"]]
+  ↳ app/controllers/resources_controller.rb:25:in 'ResourcesController#my'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1 AND "resources"."category" = $2[0m  [["user_id", 3], ["category", "specialists"]]
+  ↳ app/controllers/resources_controller.rb:26:in 'ResourcesController#my'
+  Rendering layout layouts/application.html.erb
+  Rendering resources/my.html.erb within layouts/application
+  [1m[36mCACHE Resource Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/resources/my.html.erb:102:in '_app_views_resources_my_html_erb__6779894_11648'
+  [1m[36mResource Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "resources" WHERE "resources"."user_id" = $1 LIMIT $2[0m  [["user_id", 3], ["LIMIT", 1]]
+  ↳ app/views/resources/my.html.erb:106:in '_app_views_resources_my_html_erb__6779894_11648'
+  Rendered resources/my.html.erb within layouts/application (Duration: 1.0ms | Allocations: 756)
+  Rendered layout layouts/application.html.erb (Duration: 1.6ms | Allocations: 1070)
+Completed 200 OK in 9ms (Views: 1.9ms | ActiveRecord: 1.2ms | Allocations: 4807)
+
+
+Started GET "/resources/new" for 127.0.0.1 at 2026-11-01 20:39:39 +0300
+Processing by ResourcesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering resources/new.html.erb within layouts/application
+  Rendered resources/new.html.erb within layouts/application (Duration: 0.7ms | Allocations: 140)
+  Rendered layout layouts/application.html.erb (Duration: 2.2ms | Allocations: 592)
+Completed 200 OK in 65ms (Views: 7.4ms | ActiveRecord: 5.6ms | Allocations: 13883)
+
+
+Started GET "/" for 127.0.0.1 at 2026-11-01 20:52:17 +0300
+Processing by ResourcesController#index as HTML
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (5.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 17:52:18.298931')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (2.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  Rendering layout layouts/application.html.erb
+  Rendering resources/index.html.erb within layouts/application
+  [1m[36mResource Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "resources" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/resources/index.html.erb:74:in '_app_views_resources_index_html_erb___546337905_16232'
+  [1m[36mResource Load (0.3ms)[0m  [1m[34mSELECT "resources".* FROM "resources" ORDER BY "resources"."id" DESC[0m
+  ↳ app/views/resources/index.html.erb:76:in '_app_views_resources_index_html_erb___546337905_16232'
+  Rendered resources/index.html.erb within layouts/application (Duration: 3.5ms | Allocations: 2126)
+  Rendered layout layouts/application.html.erb (Duration: 4.2ms | Allocations: 2483)
+Completed 200 OK in 372ms (Views: 4.0ms | ActiveRecord: 29.6ms | Allocations: 20228)
+
+
+Started GET "/my_resources" for 127.0.0.1 at 2026-11-01 21:02:52 +0300
+Processing by ResourcesController#my as HTML
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (5.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 18:02:52.590529')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (3.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mCACHE Resource Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/resources_controller.rb:23:in 'ResourcesController#my'
+  [1m[36mResource Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1 AND "resources"."category" = $2[0m  [["user_id", 3], ["category", "rooms"]]
+  ↳ app/controllers/resources_controller.rb:24:in 'ResourcesController#my'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1 AND "resources"."category" = $2[0m  [["user_id", 3], ["category", "equipment"]]
+  ↳ app/controllers/resources_controller.rb:25:in 'ResourcesController#my'
+  [1m[36mResource Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1 AND "resources"."category" = $2[0m  [["user_id", 3], ["category", "specialists"]]
+  ↳ app/controllers/resources_controller.rb:26:in 'ResourcesController#my'
+  Rendering layout layouts/application.html.erb
+  Rendering resources/my.html.erb within layouts/application
+  [1m[36mCACHE Resource Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/resources/my.html.erb:102:in '_app_views_resources_my_html_erb__6779894_20496'
+  [1m[36mResource Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "resources" WHERE "resources"."user_id" = $1 LIMIT $2[0m  [["user_id", 3], ["LIMIT", 1]]
+  ↳ app/views/resources/my.html.erb:106:in '_app_views_resources_my_html_erb__6779894_20496'
+  Rendered resources/my.html.erb within layouts/application (Duration: 2.5ms | Allocations: 1228)
+  Rendered layout layouts/application.html.erb (Duration: 3.7ms | Allocations: 1896)
+Completed 200 OK in 150ms (Views: 8.8ms | ActiveRecord: 19.0ms | Allocations: 20421)
+
+
+Started GET "/bookings" for 127.0.0.1 at 2026-11-01 21:02:53 +0300
+Processing by BookingsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 18:02:53.410510')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mBooking Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/bookings_controller.rb:17:in 'BookingsController#index'
+  [1m[36mBooking Sum (0.2ms)[0m  [1m[34mSELECT SUM("bookings"."duration_hours") FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/bookings_controller.rb:18:in 'BookingsController#index'
+  [1m[36mBooking Sum (0.1ms)[0m  [1m[34mSELECT SUM("bookings"."total_price") FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/bookings_controller.rb:19:in 'BookingsController#index'
+  Rendering layout layouts/application.html.erb
+  Rendering bookings/index.html.erb within layouts/application
+  [1m[36mBooking Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "bookings" WHERE "bookings"."user_id" = $1 LIMIT $2[0m  [["user_id", 3], ["LIMIT", 1]]
+  ↳ app/views/bookings/index.html.erb:86:in '_app_views_bookings_index_html_erb__182513834_20552'
+  Rendered bookings/index.html.erb within layouts/application (Duration: 1.8ms | Allocations: 877)
+  Rendered layout layouts/application.html.erb (Duration: 2.5ms | Allocations: 1206)
+Completed 200 OK in 15ms (Views: 6.6ms | ActiveRecord: 1.3ms | Allocations: 5135)
+
+
+Started GET "/my_resources" for 127.0.0.1 at 2026-11-01 21:02:54 +0300
+Processing by ResourcesController#my as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 18:02:54.583978')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mCACHE Resource Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/resources_controller.rb:23:in 'ResourcesController#my'
+  [1m[36mResource Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1 AND "resources"."category" = $2[0m  [["user_id", 3], ["category", "rooms"]]
+  ↳ app/controllers/resources_controller.rb:24:in 'ResourcesController#my'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1 AND "resources"."category" = $2[0m  [["user_id", 3], ["category", "equipment"]]
+  ↳ app/controllers/resources_controller.rb:25:in 'ResourcesController#my'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1 AND "resources"."category" = $2[0m  [["user_id", 3], ["category", "specialists"]]
+  ↳ app/controllers/resources_controller.rb:26:in 'ResourcesController#my'
+  Rendering layout layouts/application.html.erb
+  Rendering resources/my.html.erb within layouts/application
+  [1m[36mCACHE Resource Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/views/resources/my.html.erb:102:in '_app_views_resources_my_html_erb__6779894_20496'
+  [1m[36mResource Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "resources" WHERE "resources"."user_id" = $1 LIMIT $2[0m  [["user_id", 3], ["LIMIT", 1]]
+  ↳ app/views/resources/my.html.erb:106:in '_app_views_resources_my_html_erb__6779894_20496'
+  Rendered resources/my.html.erb within layouts/application (Duration: 1.2ms | Allocations: 758)
+  Rendered layout layouts/application.html.erb (Duration: 1.8ms | Allocations: 1069)
+Completed 200 OK in 12ms (Views: 2.1ms | ActiveRecord: 2.0ms | Allocations: 4786)
+
+
+Started GET "/resources" for 127.0.0.1 at 2026-11-01 21:02:54 +0300
+Processing by ResourcesController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 18:02:54.990359')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  Rendering layout layouts/application.html.erb
+  Rendering resources/index.html.erb within layouts/application
+  [1m[36mResource Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "resources" LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/views/resources/index.html.erb:74:in '_app_views_resources_index_html_erb___546337905_20608'
+  [1m[36mResource Load (0.3ms)[0m  [1m[34mSELECT "resources".* FROM "resources" ORDER BY "resources"."id" DESC[0m
+  ↳ app/views/resources/index.html.erb:76:in '_app_views_resources_index_html_erb___546337905_20608'
+  Rendered resources/index.html.erb within layouts/application (Duration: 7.2ms | Allocations: 7188)
+  Rendered layout layouts/application.html.erb (Duration: 8.4ms | Allocations: 7501)
+Completed 200 OK in 15ms (Views: 8.3ms | ActiveRecord: 1.2ms | Allocations: 9697)
+
+
+Started GET "/resources/res_1793550073_262" for 127.0.0.1 at 2026-11-01 21:02:57 +0300
+Processing by ResourcesController#show as HTML
+  Parameters: {"id" => "res_1793550073_262"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 18:02:57.605870')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mResource Load (0.1ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."slug" = $1 LIMIT $2[0m  [["slug", "res_1793550073_262"], ["LIMIT", 1]]
+  ↳ app/controllers/resources_controller.rb:31:in 'ResourcesController#show'
+  [1m[36mBooking Load (0.2ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."resource_id" = $1 AND "bookings"."booking_date" = $2 AND "bookings"."status" = $3[0m  [["resource_id", 7], ["booking_date", "2026-11-01"], ["status", "confirmed"]]
+  ↳ app/models/resource.rb:84:in 'block in Resource#hourly_slots_for'
+  Rendering layout layouts/application.html.erb
+  Rendering resources/show.html.erb within layouts/application
+  Rendered resources/show.html.erb within layouts/application (Duration: 0.8ms | Allocations: 450)
+  Rendered layout layouts/application.html.erb (Duration: 1.4ms | Allocations: 759)
+Completed 200 OK in 11ms (Views: 1.8ms | ActiveRecord: 1.0ms | Allocations: 4672)
+
+
+Started GET "/api/v1/resources/7/availability?date=2026-11-01" for 127.0.0.1 at 2026-11-01 21:02:57 +0300
+Processing by Api::V1::ResourcesController#availability as JSON
+  Parameters: {"date" => "2026-11-01", "id" => "7"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 18:02:57.896400')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mResource Load (0.1ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."slug" = $1 LIMIT $2[0m  [["slug", "7"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/resources_controller.rb:9:in 'Api::V1::ResourcesController#availability'
+  [1m[36mResource Load (0.2ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/resources_controller.rb:9:in 'Api::V1::ResourcesController#availability'
+  [1m[36mBooking Load (0.4ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."resource_id" = $1 AND "bookings"."booking_date" = $2 AND "bookings"."status" = $3[0m  [["resource_id", 7], ["booking_date", "2026-11-01"], ["status", "confirmed"]]
+  ↳ app/models/resource.rb:84:in 'block in Resource#hourly_slots_for'
+Completed 200 OK in 22ms (Views: 0.2ms | ActiveRecord: 1.4ms | Allocations: 4258)
+
+
+Started GET "/resources/res_sound_eng" for 127.0.0.1 at 2026-11-01 21:03:05 +0300
+Processing by ResourcesController#show as HTML
+  Parameters: {"id" => "res_sound_eng"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 18:03:05.187435')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mResource Load (0.2ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."slug" = $1 LIMIT $2[0m  [["slug", "res_sound_eng"], ["LIMIT", 1]]
+  ↳ app/controllers/resources_controller.rb:31:in 'ResourcesController#show'
+  [1m[36mBooking Load (0.2ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."resource_id" = $1 AND "bookings"."booking_date" = $2 AND "bookings"."status" = $3[0m  [["resource_id", 6], ["booking_date", "2026-11-01"], ["status", "confirmed"]]
+  ↳ app/models/resource.rb:84:in 'block in Resource#hourly_slots_for'
+  Rendering layout layouts/application.html.erb
+  Rendering resources/show.html.erb within layouts/application
+  Rendered resources/show.html.erb within layouts/application (Duration: 0.2ms | Allocations: 116)
+  Rendered layout layouts/application.html.erb (Duration: 1.1ms | Allocations: 426)
+Completed 200 OK in 11ms (Views: 1.6ms | ActiveRecord: 1.1ms | Allocations: 3675)
+
+
+Started GET "/api/v1/resources/6/availability?date=2026-11-01" for 127.0.0.1 at 2026-11-01 21:03:05 +0300
+Processing by Api::V1::ResourcesController#availability as JSON
+  Parameters: {"date" => "2026-11-01", "id" => "6"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in 'ApplicationController#active_bookings_count'
+  [1m[36mBooking Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "bookings" WHERE "bookings"."user_id" = $1 AND "bookings"."status" = $2 AND (upper(booking_period) >= '2026-11-01 18:03:05.485841')[0m  [["user_id", 3], ["status", "confirmed"]]
+  ↳ app/controllers/application_controller.rb:11:in 'ApplicationController#active_bookings_count'
+  [1m[36mResource Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "resources" WHERE "resources"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:18:in 'ApplicationController#my_resources_count'
+  [1m[36mResource Load (0.2ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."slug" = $1 LIMIT $2[0m  [["slug", "6"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/resources_controller.rb:9:in 'Api::V1::ResourcesController#availability'
+  [1m[36mResource Load (0.1ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/resources_controller.rb:9:in 'Api::V1::ResourcesController#availability'
+  [1m[36mBooking Load (0.2ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."resource_id" = $1 AND "bookings"."booking_date" = $2 AND "bookings"."status" = $3[0m  [["resource_id", 6], ["booking_date", "2026-11-01"], ["status", "confirmed"]]
+  ↳ app/models/resource.rb:84:in 'block in Resource#hourly_slots_for'
+Completed 200 OK in 9ms (Views: 0.2ms | ActiveRecord: 1.2ms | Allocations: 3641)
+
+
+Started GET "/resources/res_alpha" for 127.0.0.1 at 2026-11-01 21:13:10 +0300
+Processing by ResourcesController#show as HTML
+  Parameters: {"id" => "res_alpha"}
+  [1m[36mResource Load (2.1ms)[0m  [1m[34mSELECT "resources".* FROM "resources" WHERE "resources"."slug" = $1 LIMIT $2[0m  [["slug", "res_alpha"], ["LIMIT", 1]]
+  ↳ app/controllers/resources_controller.rb:31:in 'ResourcesController#show'
+  [1m[36mBooking Load (4.5ms)[0m  [1m[34mSELECT "bookings".* FROM "bookings" WHERE "bookings"."resource_id" = $1 AND "bookings"."booking_date" = $2 AND "bookings"."status" = $3[0m  [["resource_id", 1], ["booking_date", "2026-11-01"], ["status", "confirmed"]]
+  ↳ app/models/resource.rb:88:in 'block in Resource#hourly_slots_for'
+  Rendering layout layouts/application.html.erb
+  Rendering resources/show.html.erb within layouts/application
+  Rendered resources/show.html.erb within layouts/application (Duration: 1.2ms | Allocations: 652)
+  Rendered layout layouts/application.html.erb (Duration: 2.3ms | Allocations: 1128)
+Completed 200 OK in 134ms (Views: 8.7ms | ActiveRecord: 13.7ms | Allocations: 24106)
+
+
+Started POST "/resources/res_alpha/update_image" for 127.0.0.1 at 2026-11-01 21:13:20 +0300
+Processing by ResourcesController#update_image as HTML
+  Parameters: {"id" => "res_alpha"}
+Can't verify CSRF token authenticity.
+Completed 422 Unprocessable Content in 0ms (ActiveRecord: 0.0ms | Allocations: 639)
+
+
+  
+ActionController::InvalidAuthenticityToken (Can't verify CSRF token authenticity.):
+  
+actionpack (7.1.6) lib/action_controller/metal/request_forgery_protection.rb:293:in 'ActionController::RequestForgeryProtection::ProtectionMethods::Exception#handle_unverified_request'
+actionpack (7.1.6) lib/action_controller/metal/request_forgery_protection.rb:388:in 'ActionController::RequestForgeryProtection#handle_unverified_request'
+devise (4.9.4) lib/devise/controllers/helpers.rb:257:in 'Devise::Controllers::Helpers#handle_unverified_request'
+actionpack (7.1.6) lib/action_controller/metal/request_forgery_protection.rb:377:in 'ActionController::RequestForgeryProtection#verify_authenticity_token'
+activesupport (7.1.6) lib/active_support/callbacks.rb:403:in 'block in ActiveSupport::Callbacks::CallTemplate::MethodCall#make_lambda'
+activesupport (7.1.6) lib/active_support/callbacks.rb:202:in 'block (2 levels) in ActiveSupport::Callbacks::Filters::Before.halting'
+actionpack (7.1.6) lib/abstract_controller/callbacks.rb:34:in 'block (2 levels) in <module:Callbacks>'
+activesupport (7.1.6) lib/active_support/callbacks.rb:203:in 'block in ActiveSupport::Callbacks::Filters::Before.halting'
+activesupport (7.1.6) lib/active_support/callbacks.rb:598:in 'block in ActiveSupport::Callbacks::CallbackSequence#invoke_before'
+activesupport (7.1.6) lib/active_support/callbacks.rb:598:in 'Array#each'
+activesupport (7.1.6) lib/active_support/callbacks.rb:598:in 'ActiveSupport::Callbacks::CallbackSequence#invoke_before'
+activesupport (7.1.6) lib/active_support/callbacks.rb:119:in 'block in ActiveSupport::Callbacks#run_callbacks'
+activesupport (7.1.6) lib/active_support/callbacks.rb:141:in 'ActiveSupport::Callbacks#run_callbacks'
+actionpack (7.1.6) lib/abstract_controller/callbacks.rb:258:in 'AbstractController::Callbacks#process_action'
+actionpack (7.1.6) lib/action_controller/metal/rescue.rb:25:in 'ActionController::Rescue#process_action'
+actionpack (7.1.6) lib/action_controller/metal/instrumentation.rb:74:in 'block in ActionController::Instrumentation#process_action'
+activesupport (7.1.6) lib/active_support/notifications.rb:206:in 'block in ActiveSupport::Notifications.instrument'
+activesupport (7.1.6) lib/active_support/notifications/instrumenter.rb:58:in 'ActiveSupport::Notifications::Instrumenter#instrument'
+activesupport (7.1.6) lib/active_support/notifications.rb:206:in 'ActiveSupport::Notifications.instrument'
+actionpack (7.1.6) lib/action_controller/metal/instrumentation.rb:73:in 'ActionController::Instrumentation#process_action'
+actionpack (7.1.6) lib/action_controller/metal/params_wrapper.rb:261:in 'ActionController::ParamsWrapper#process_action'
+activerecord (7.1.6) lib/active_record/railties/controller_runtime.rb:32:in 'ActiveRecord::Railties::ControllerRuntime#process_action'
+actionpack (7.1.6) lib/abstract_controller/base.rb:160:in 'AbstractController::Base#process'
+actionview (7.1.6) lib/action_view/rendering.rb:40:in 'ActionView::Rendering#process'
+actionpack (7.1.6) lib/action_controller/metal.rb:227:in 'ActionController::Metal#dispatch'
+actionpack (7.1.6) lib/action_controller/metal.rb:309:in 'ActionController::Metal.dispatch'
+actionpack (7.1.6) lib/action_dispatch/routing/route_set.rb:49:in 'ActionDispatch::Routing::RouteSet::Dispatcher#dispatch'
+actionpack (7.1.6) lib/action_dispatch/routing/route_set.rb:32:in 'ActionDispatch::Routing::RouteSet::Dispatcher#serve'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:51:in 'block in ActionDispatch::Journey::Router#serve'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:131:in 'block in ActionDispatch::Journey::Router#find_routes'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:124:in 'Array#each'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:124:in 'ActionDispatch::Journey::Router#find_routes'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:32:in 'ActionDispatch::Journey::Router#serve'
+actionpack (7.1.6) lib/action_dispatch/routing/route_set.rb:882:in 'ActionDispatch::Routing::RouteSet#call'
+warden (1.2.9) lib/warden/manager.rb:36:in 'block in Warden::Manager#call'
+warden (1.2.9) lib/warden/manager.rb:34:in 'Kernel#catch'
+warden (1.2.9) lib/warden/manager.rb:34:in 'Warden::Manager#call'
+rack (3.2.7) lib/rack/tempfile_reaper.rb:20:in 'Rack::TempfileReaper#call'
+rack (3.2.7) lib/rack/etag.rb:29:in 'Rack::ETag#call'
+rack (3.2.7) lib/rack/conditional_get.rb:44:in 'Rack::ConditionalGet#call'
+rack (3.2.7) lib/rack/head.rb:15:in 'Rack::Head#call'
+actionpack (7.1.6) lib/action_dispatch/http/permissions_policy.rb:36:in 'ActionDispatch::PermissionsPolicy::Middleware#call'
+actionpack (7.1.6) lib/action_dispatch/http/content_security_policy.rb:36:in 'ActionDispatch::ContentSecurityPolicy::Middleware#call'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:274:in 'Rack::Session::Abstract::Persisted#context'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:268:in 'Rack::Session::Abstract::Persisted#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/cookies.rb:689:in 'ActionDispatch::Cookies#call'
+activerecord (7.1.6) lib/active_record/migration.rb:655:in 'ActiveRecord::Migration::CheckPending#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/callbacks.rb:29:in 'block in ActionDispatch::Callbacks#call'
+activesupport (7.1.6) lib/active_support/callbacks.rb:101:in 'ActiveSupport::Callbacks#run_callbacks'
+actionpack (7.1.6) lib/action_dispatch/middleware/callbacks.rb:28:in 'ActionDispatch::Callbacks#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/executor.rb:14:in 'ActionDispatch::Executor#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in 'ActionDispatch::ActionableExceptions#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/debug_exceptions.rb:29:in 'ActionDispatch::DebugExceptions#call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in 'WebConsole::Middleware#call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in 'block in WebConsole::Middleware#call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in 'Kernel#catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in 'WebConsole::Middleware#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/show_exceptions.rb:31:in 'ActionDispatch::ShowExceptions#call'
+railties (7.1.6) lib/rails/rack/logger.rb:37:in 'Rails::Rack::Logger#call_app'
+railties (7.1.6) lib/rails/rack/logger.rb:24:in 'block in Rails::Rack::Logger#call'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:139:in 'block in ActiveSupport::TaggedLogging#tagged'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:39:in 'ActiveSupport::TaggedLogging::Formatter#tagged'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:139:in 'ActiveSupport::TaggedLogging#tagged'
+activesupport (7.1.6) lib/active_support/broadcast_logger.rb:241:in 'ActiveSupport::BroadcastLogger#method_missing'
+railties (7.1.6) lib/rails/rack/logger.rb:24:in 'Rails::Rack::Logger#call'
+sprockets-rails (3.5.2) lib/sprockets/rails/quiet_assets.rb:17:in 'Sprockets::Rails::QuietAssets#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/remote_ip.rb:92:in 'ActionDispatch::RemoteIp#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/request_id.rb:28:in 'ActionDispatch::RequestId#call'
+rack (3.2.7) lib/rack/method_override.rb:28:in 'Rack::MethodOverride#call'
+rack (3.2.7) lib/rack/runtime.rb:24:in 'Rack::Runtime#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:59:in 'block in ActionDispatch::ServerTiming#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:24:in 'ActionDispatch::ServerTiming::Subscriber#collect_events'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:58:in 'ActionDispatch::ServerTiming#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/executor.rb:14:in 'ActionDispatch::Executor#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/static.rb:25:in 'ActionDispatch::Static#call'
+rack (3.2.7) lib/rack/sendfile.rb:131:in 'Rack::Sendfile#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/host_authorization.rb:141:in 'ActionDispatch::HostAuthorization#call'
+railties (7.1.6) lib/rails/engine.rb:536:in 'Rails::Engine#call'
+puma (8.0.2) lib/puma/configuration.rb:305:in 'Puma::Configuration::ConfigMiddleware#call'
+puma (8.0.2) lib/puma/response.rb:79:in 'block in Puma::Response#handle_request'
+puma (8.0.2) lib/puma/thread_pool.rb:434:in 'Puma::ThreadPool#with_force_shutdown'
+puma (8.0.2) lib/puma/response.rb:78:in 'Puma::Response#handle_request'
+puma (8.0.2) lib/puma/server.rb:508:in 'Puma::Server#process_client'
+puma (8.0.2) lib/puma/server.rb:263:in 'block in Puma::Server#run'
+puma (8.0.2) lib/puma/thread_pool.rb:246:in 'block in Puma::ThreadPool#spawn_thread'
+Started POST "/resources/res_alpha/update_image" for 127.0.0.1 at 2026-11-01 21:13:30 +0300
+Processing by ResourcesController#update_image as HTML
+  Parameters: {"id" => "res_alpha"}
+Can't verify CSRF token authenticity.
+Completed 422 Unprocessable Content in 1ms (ActiveRecord: 0.0ms | Allocations: 570)
+
+
+  
+ActionController::InvalidAuthenticityToken (Can't verify CSRF token authenticity.):
+  
+actionpack (7.1.6) lib/action_controller/metal/request_forgery_protection.rb:293:in 'ActionController::RequestForgeryProtection::ProtectionMethods::Exception#handle_unverified_request'
+actionpack (7.1.6) lib/action_controller/metal/request_forgery_protection.rb:388:in 'ActionController::RequestForgeryProtection#handle_unverified_request'
+devise (4.9.4) lib/devise/controllers/helpers.rb:257:in 'Devise::Controllers::Helpers#handle_unverified_request'
+actionpack (7.1.6) lib/action_controller/metal/request_forgery_protection.rb:377:in 'ActionController::RequestForgeryProtection#verify_authenticity_token'
+activesupport (7.1.6) lib/active_support/callbacks.rb:403:in 'block in ActiveSupport::Callbacks::CallTemplate::MethodCall#make_lambda'
+activesupport (7.1.6) lib/active_support/callbacks.rb:202:in 'block (2 levels) in ActiveSupport::Callbacks::Filters::Before.halting'
+actionpack (7.1.6) lib/abstract_controller/callbacks.rb:34:in 'block (2 levels) in <module:Callbacks>'
+activesupport (7.1.6) lib/active_support/callbacks.rb:203:in 'block in ActiveSupport::Callbacks::Filters::Before.halting'
+activesupport (7.1.6) lib/active_support/callbacks.rb:598:in 'block in ActiveSupport::Callbacks::CallbackSequence#invoke_before'
+activesupport (7.1.6) lib/active_support/callbacks.rb:598:in 'Array#each'
+activesupport (7.1.6) lib/active_support/callbacks.rb:598:in 'ActiveSupport::Callbacks::CallbackSequence#invoke_before'
+activesupport (7.1.6) lib/active_support/callbacks.rb:119:in 'block in ActiveSupport::Callbacks#run_callbacks'
+activesupport (7.1.6) lib/active_support/callbacks.rb:141:in 'ActiveSupport::Callbacks#run_callbacks'
+actionpack (7.1.6) lib/abstract_controller/callbacks.rb:258:in 'AbstractController::Callbacks#process_action'
+actionpack (7.1.6) lib/action_controller/metal/rescue.rb:25:in 'ActionController::Rescue#process_action'
+actionpack (7.1.6) lib/action_controller/metal/instrumentation.rb:74:in 'block in ActionController::Instrumentation#process_action'
+activesupport (7.1.6) lib/active_support/notifications.rb:206:in 'block in ActiveSupport::Notifications.instrument'
+activesupport (7.1.6) lib/active_support/notifications/instrumenter.rb:58:in 'ActiveSupport::Notifications::Instrumenter#instrument'
+activesupport (7.1.6) lib/active_support/notifications.rb:206:in 'ActiveSupport::Notifications.instrument'
+actionpack (7.1.6) lib/action_controller/metal/instrumentation.rb:73:in 'ActionController::Instrumentation#process_action'
+actionpack (7.1.6) lib/action_controller/metal/params_wrapper.rb:261:in 'ActionController::ParamsWrapper#process_action'
+activerecord (7.1.6) lib/active_record/railties/controller_runtime.rb:32:in 'ActiveRecord::Railties::ControllerRuntime#process_action'
+actionpack (7.1.6) lib/abstract_controller/base.rb:160:in 'AbstractController::Base#process'
+actionview (7.1.6) lib/action_view/rendering.rb:40:in 'ActionView::Rendering#process'
+actionpack (7.1.6) lib/action_controller/metal.rb:227:in 'ActionController::Metal#dispatch'
+actionpack (7.1.6) lib/action_controller/metal.rb:309:in 'ActionController::Metal.dispatch'
+actionpack (7.1.6) lib/action_dispatch/routing/route_set.rb:49:in 'ActionDispatch::Routing::RouteSet::Dispatcher#dispatch'
+actionpack (7.1.6) lib/action_dispatch/routing/route_set.rb:32:in 'ActionDispatch::Routing::RouteSet::Dispatcher#serve'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:51:in 'block in ActionDispatch::Journey::Router#serve'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:131:in 'block in ActionDispatch::Journey::Router#find_routes'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:124:in 'Array#each'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:124:in 'ActionDispatch::Journey::Router#find_routes'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:32:in 'ActionDispatch::Journey::Router#serve'
+actionpack (7.1.6) lib/action_dispatch/routing/route_set.rb:882:in 'ActionDispatch::Routing::RouteSet#call'
+warden (1.2.9) lib/warden/manager.rb:36:in 'block in Warden::Manager#call'
+warden (1.2.9) lib/warden/manager.rb:34:in 'Kernel#catch'
+warden (1.2.9) lib/warden/manager.rb:34:in 'Warden::Manager#call'
+rack (3.2.7) lib/rack/tempfile_reaper.rb:20:in 'Rack::TempfileReaper#call'
+rack (3.2.7) lib/rack/etag.rb:29:in 'Rack::ETag#call'
+rack (3.2.7) lib/rack/conditional_get.rb:44:in 'Rack::ConditionalGet#call'
+rack (3.2.7) lib/rack/head.rb:15:in 'Rack::Head#call'
+actionpack (7.1.6) lib/action_dispatch/http/permissions_policy.rb:36:in 'ActionDispatch::PermissionsPolicy::Middleware#call'
+actionpack (7.1.6) lib/action_dispatch/http/content_security_policy.rb:36:in 'ActionDispatch::ContentSecurityPolicy::Middleware#call'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:274:in 'Rack::Session::Abstract::Persisted#context'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:268:in 'Rack::Session::Abstract::Persisted#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/cookies.rb:689:in 'ActionDispatch::Cookies#call'
+activerecord (7.1.6) lib/active_record/migration.rb:655:in 'ActiveRecord::Migration::CheckPending#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/callbacks.rb:29:in 'block in ActionDispatch::Callbacks#call'
+activesupport (7.1.6) lib/active_support/callbacks.rb:101:in 'ActiveSupport::Callbacks#run_callbacks'
+actionpack (7.1.6) lib/action_dispatch/middleware/callbacks.rb:28:in 'ActionDispatch::Callbacks#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/executor.rb:14:in 'ActionDispatch::Executor#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in 'ActionDispatch::ActionableExceptions#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/debug_exceptions.rb:29:in 'ActionDispatch::DebugExceptions#call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in 'WebConsole::Middleware#call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in 'block in WebConsole::Middleware#call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in 'Kernel#catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in 'WebConsole::Middleware#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/show_exceptions.rb:31:in 'ActionDispatch::ShowExceptions#call'
+railties (7.1.6) lib/rails/rack/logger.rb:37:in 'Rails::Rack::Logger#call_app'
+railties (7.1.6) lib/rails/rack/logger.rb:24:in 'block in Rails::Rack::Logger#call'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:139:in 'block in ActiveSupport::TaggedLogging#tagged'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:39:in 'ActiveSupport::TaggedLogging::Formatter#tagged'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:139:in 'ActiveSupport::TaggedLogging#tagged'
+activesupport (7.1.6) lib/active_support/broadcast_logger.rb:241:in 'ActiveSupport::BroadcastLogger#method_missing'
+railties (7.1.6) lib/rails/rack/logger.rb:24:in 'Rails::Rack::Logger#call'
+sprockets-rails (3.5.2) lib/sprockets/rails/quiet_assets.rb:17:in 'Sprockets::Rails::QuietAssets#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/remote_ip.rb:92:in 'ActionDispatch::RemoteIp#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/request_id.rb:28:in 'ActionDispatch::RequestId#call'
+rack (3.2.7) lib/rack/method_override.rb:28:in 'Rack::MethodOverride#call'
+rack (3.2.7) lib/rack/runtime.rb:24:in 'Rack::Runtime#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:59:in 'block in ActionDispatch::ServerTiming#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:24:in 'ActionDispatch::ServerTiming::Subscriber#collect_events'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:58:in 'ActionDispatch::ServerTiming#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/executor.rb:14:in 'ActionDispatch::Executor#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/static.rb:25:in 'ActionDispatch::Static#call'
+rack (3.2.7) lib/rack/sendfile.rb:131:in 'Rack::Sendfile#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/host_authorization.rb:141:in 'ActionDispatch::HostAuthorization#call'
+railties (7.1.6) lib/rails/engine.rb:536:in 'Rails::Engine#call'
+puma (8.0.2) lib/puma/configuration.rb:305:in 'Puma::Configuration::ConfigMiddleware#call'
+puma (8.0.2) lib/puma/response.rb:79:in 'block in Puma::Response#handle_request'
+puma (8.0.2) lib/puma/thread_pool.rb:434:in 'Puma::ThreadPool#with_force_shutdown'
+puma (8.0.2) lib/puma/response.rb:78:in 'Puma::Response#handle_request'
+puma (8.0.2) lib/puma/server.rb:508:in 'Puma::Server#process_client'
+puma (8.0.2) lib/puma/server.rb:263:in 'block in Puma::Server#run'
+puma (8.0.2) lib/puma/thread_pool.rb:246:in 'block in Puma::ThreadPool#spawn_thread'
+Started POST "/resources/res_alpha/update_image" for 127.0.0.1 at 2026-11-01 21:13:46 +0300
+Processing by ResourcesController#update_image as HTML
+  Parameters: {"id" => "res_alpha"}
+Can't verify CSRF token authenticity.
+Completed 422 Unprocessable Content in 0ms (ActiveRecord: 0.0ms | Allocations: 570)
+
+
+  
+ActionController::InvalidAuthenticityToken (Can't verify CSRF token authenticity.):
+  
+actionpack (7.1.6) lib/action_controller/metal/request_forgery_protection.rb:293:in 'ActionController::RequestForgeryProtection::ProtectionMethods::Exception#handle_unverified_request'
+actionpack (7.1.6) lib/action_controller/metal/request_forgery_protection.rb:388:in 'ActionController::RequestForgeryProtection#handle_unverified_request'
+devise (4.9.4) lib/devise/controllers/helpers.rb:257:in 'Devise::Controllers::Helpers#handle_unverified_request'
+actionpack (7.1.6) lib/action_controller/metal/request_forgery_protection.rb:377:in 'ActionController::RequestForgeryProtection#verify_authenticity_token'
+activesupport (7.1.6) lib/active_support/callbacks.rb:403:in 'block in ActiveSupport::Callbacks::CallTemplate::MethodCall#make_lambda'
+activesupport (7.1.6) lib/active_support/callbacks.rb:202:in 'block (2 levels) in ActiveSupport::Callbacks::Filters::Before.halting'
+actionpack (7.1.6) lib/abstract_controller/callbacks.rb:34:in 'block (2 levels) in <module:Callbacks>'
+activesupport (7.1.6) lib/active_support/callbacks.rb:203:in 'block in ActiveSupport::Callbacks::Filters::Before.halting'
+activesupport (7.1.6) lib/active_support/callbacks.rb:598:in 'block in ActiveSupport::Callbacks::CallbackSequence#invoke_before'
+activesupport (7.1.6) lib/active_support/callbacks.rb:598:in 'Array#each'
+activesupport (7.1.6) lib/active_support/callbacks.rb:598:in 'ActiveSupport::Callbacks::CallbackSequence#invoke_before'
+activesupport (7.1.6) lib/active_support/callbacks.rb:119:in 'block in ActiveSupport::Callbacks#run_callbacks'
+activesupport (7.1.6) lib/active_support/callbacks.rb:141:in 'ActiveSupport::Callbacks#run_callbacks'
+actionpack (7.1.6) lib/abstract_controller/callbacks.rb:258:in 'AbstractController::Callbacks#process_action'
+actionpack (7.1.6) lib/action_controller/metal/rescue.rb:25:in 'ActionController::Rescue#process_action'
+actionpack (7.1.6) lib/action_controller/metal/instrumentation.rb:74:in 'block in ActionController::Instrumentation#process_action'
+activesupport (7.1.6) lib/active_support/notifications.rb:206:in 'block in ActiveSupport::Notifications.instrument'
+activesupport (7.1.6) lib/active_support/notifications/instrumenter.rb:58:in 'ActiveSupport::Notifications::Instrumenter#instrument'
+activesupport (7.1.6) lib/active_support/notifications.rb:206:in 'ActiveSupport::Notifications.instrument'
+actionpack (7.1.6) lib/action_controller/metal/instrumentation.rb:73:in 'ActionController::Instrumentation#process_action'
+actionpack (7.1.6) lib/action_controller/metal/params_wrapper.rb:261:in 'ActionController::ParamsWrapper#process_action'
+activerecord (7.1.6) lib/active_record/railties/controller_runtime.rb:32:in 'ActiveRecord::Railties::ControllerRuntime#process_action'
+actionpack (7.1.6) lib/abstract_controller/base.rb:160:in 'AbstractController::Base#process'
+actionview (7.1.6) lib/action_view/rendering.rb:40:in 'ActionView::Rendering#process'
+actionpack (7.1.6) lib/action_controller/metal.rb:227:in 'ActionController::Metal#dispatch'
+actionpack (7.1.6) lib/action_controller/metal.rb:309:in 'ActionController::Metal.dispatch'
+actionpack (7.1.6) lib/action_dispatch/routing/route_set.rb:49:in 'ActionDispatch::Routing::RouteSet::Dispatcher#dispatch'
+actionpack (7.1.6) lib/action_dispatch/routing/route_set.rb:32:in 'ActionDispatch::Routing::RouteSet::Dispatcher#serve'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:51:in 'block in ActionDispatch::Journey::Router#serve'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:131:in 'block in ActionDispatch::Journey::Router#find_routes'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:124:in 'Array#each'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:124:in 'ActionDispatch::Journey::Router#find_routes'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:32:in 'ActionDispatch::Journey::Router#serve'
+actionpack (7.1.6) lib/action_dispatch/routing/route_set.rb:882:in 'ActionDispatch::Routing::RouteSet#call'
+warden (1.2.9) lib/warden/manager.rb:36:in 'block in Warden::Manager#call'
+warden (1.2.9) lib/warden/manager.rb:34:in 'Kernel#catch'
+warden (1.2.9) lib/warden/manager.rb:34:in 'Warden::Manager#call'
+rack (3.2.7) lib/rack/tempfile_reaper.rb:20:in 'Rack::TempfileReaper#call'
+rack (3.2.7) lib/rack/etag.rb:29:in 'Rack::ETag#call'
+rack (3.2.7) lib/rack/conditional_get.rb:44:in 'Rack::ConditionalGet#call'
+rack (3.2.7) lib/rack/head.rb:15:in 'Rack::Head#call'
+actionpack (7.1.6) lib/action_dispatch/http/permissions_policy.rb:36:in 'ActionDispatch::PermissionsPolicy::Middleware#call'
+actionpack (7.1.6) lib/action_dispatch/http/content_security_policy.rb:36:in 'ActionDispatch::ContentSecurityPolicy::Middleware#call'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:274:in 'Rack::Session::Abstract::Persisted#context'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:268:in 'Rack::Session::Abstract::Persisted#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/cookies.rb:689:in 'ActionDispatch::Cookies#call'
+activerecord (7.1.6) lib/active_record/migration.rb:655:in 'ActiveRecord::Migration::CheckPending#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/callbacks.rb:29:in 'block in ActionDispatch::Callbacks#call'
+activesupport (7.1.6) lib/active_support/callbacks.rb:101:in 'ActiveSupport::Callbacks#run_callbacks'
+actionpack (7.1.6) lib/action_dispatch/middleware/callbacks.rb:28:in 'ActionDispatch::Callbacks#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/executor.rb:14:in 'ActionDispatch::Executor#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in 'ActionDispatch::ActionableExceptions#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/debug_exceptions.rb:29:in 'ActionDispatch::DebugExceptions#call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in 'WebConsole::Middleware#call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in 'block in WebConsole::Middleware#call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in 'Kernel#catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in 'WebConsole::Middleware#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/show_exceptions.rb:31:in 'ActionDispatch::ShowExceptions#call'
+railties (7.1.6) lib/rails/rack/logger.rb:37:in 'Rails::Rack::Logger#call_app'
+railties (7.1.6) lib/rails/rack/logger.rb:24:in 'block in Rails::Rack::Logger#call'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:139:in 'block in ActiveSupport::TaggedLogging#tagged'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:39:in 'ActiveSupport::TaggedLogging::Formatter#tagged'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:139:in 'ActiveSupport::TaggedLogging#tagged'
+activesupport (7.1.6) lib/active_support/broadcast_logger.rb:241:in 'ActiveSupport::BroadcastLogger#method_missing'
+railties (7.1.6) lib/rails/rack/logger.rb:24:in 'Rails::Rack::Logger#call'
+sprockets-rails (3.5.2) lib/sprockets/rails/quiet_assets.rb:17:in 'Sprockets::Rails::QuietAssets#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/remote_ip.rb:92:in 'ActionDispatch::RemoteIp#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/request_id.rb:28:in 'ActionDispatch::RequestId#call'
+rack (3.2.7) lib/rack/method_override.rb:28:in 'Rack::MethodOverride#call'
+rack (3.2.7) lib/rack/runtime.rb:24:in 'Rack::Runtime#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:59:in 'block in ActionDispatch::ServerTiming#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:24:in 'ActionDispatch::ServerTiming::Subscriber#collect_events'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:58:in 'ActionDispatch::ServerTiming#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/executor.rb:14:in 'ActionDispatch::Executor#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/static.rb:25:in 'ActionDispatch::Static#call'
+rack (3.2.7) lib/rack/sendfile.rb:131:in 'Rack::Sendfile#call'
+actionpack (7.1.6) lib/action_dispatch/middleware/host_authorization.rb:141:in 'ActionDispatch::HostAuthorization#call'
+railties (7.1.6) lib/rails/engine.rb:536:in 'Rails::Engine#call'
+puma (8.0.2) lib/puma/configuration.rb:305:in 'Puma::Configuration::ConfigMiddleware#call'
+puma (8.0.2) lib/puma/response.rb:79:in 'block in Puma::Response#handle_request'
+puma (8.0.2) lib/puma/thread_pool.rb:434:in 'Puma::ThreadPool#with_force_shutdown'
+puma (8.0.2) lib/puma/response.rb:78:in 'Puma::Response#handle_request'
+puma (8.0.2) lib/puma/server.rb:508:in 'Puma::Server#process_client'
+puma (8.0.2) lib/puma/server.rb:263:in 'block in Puma::Server#run'
+puma (8.0.2) lib/puma/thread_pool.rb:246:in 'block in Puma::ThreadPool#spawn_thread'
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <main> at E:/slop/config/environment.rb:5)

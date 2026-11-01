@@ -124,12 +124,14 @@
               </div>
 
               <div class="flex items-center gap-2">
-                <a
-                  href="/resources/<%= resource.slug %>#vue-resource-image-uploader"
-                  class="px-3 py-2 rounded-lg text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors whitespace-nowrap shrink-0"
-                >
-                  Фото
-                </a>
+                <% if resource.owned_by?(current_user) %>
+                  <a
+                    href="<%= edit_resource_path(resource.slug) %>"
+                    class="px-3 py-2 rounded-lg text-xs font-semibold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200 transition-colors whitespace-nowrap shrink-0"
+                  >
+                    Редактировать
+                  </a>
+                <% end %>
                 <a
                   href="/resources/<%= resource.slug %>"
                   class="px-4 py-2 rounded-lg text-xs font-semibold bg-sky-600 hover:bg-sky-700 text-white transition-colors whitespace-nowrap shrink-0"
